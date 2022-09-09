@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:test_task/logic/model/restaurant.dart';
 
 class InfoCard extends StatelessWidget {
-  const InfoCard({Key? key}) : super(key: key);
+  const InfoCard({Key? key, required this.restaurant, required this.index})
+      : super(key: key);
+
+  final RestaurantCard restaurant;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,8 @@ class InfoCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/detail');
+          Navigator.pushNamed(context, '/detail',
+              arguments: {'restaurant': restaurant, 'index': index});
         },
         child: Card(
           elevation: 0,
@@ -22,16 +28,16 @@ class InfoCard extends StatelessWidget {
               ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                   child: Image.network(
-                    'https://www.cnu.org/sites/default/files/styles/public_square_feature_image/public/beverly-center-lighting.jpg?itok=gHo9QySd',
+                    '${restaurant.restaurants?[index].images![0]}',
                     width: 370,
                     height: 165,
                     fit: BoxFit.cover,
                   )),
-              const Padding(
-                padding: EdgeInsets.only(left: 16,top: 11),
+              Padding(
+                padding: const EdgeInsets.only(left: 16, top: 11),
                 child: Text(
-                  'Esentail Mall',
-                  style: TextStyle(
+                  '${restaurant.restaurants?[index].title}',
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Manrope',
@@ -41,29 +47,32 @@ class InfoCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16,top: 1),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, top: 1),
                     child: SizedBox(
                       width: 290,
                       child: Text(
-                        'Один из крупнейших торговых центров в ... Аль-Фараби',
+                        '${restaurant.restaurants?[index].description}',
                         overflow: TextOverflow.ellipsis,
-                        maxLines:2,
-                        style: TextStyle(
+                        maxLines: 2,
+                        style: const TextStyle(
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             fontFamily: 'Manrope',
-                            color: Colors.grey
-                        ),
+                            color: Colors.grey),
                       ),
                     ),
                   ),
-                 Transform.translate(
-                   offset: const Offset(0,-20),
-                     child: IconButton(
-                         onPressed: () {},
-                         icon: const Icon(Icons.favorite,size: 30,color: Colors.red,)))
+                  Transform.translate(
+                      offset: const Offset(0, -20),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.favorite,
+                            size: 30,
+                            color: Colors.red,
+                          )))
                 ],
               )
             ],

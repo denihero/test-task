@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:test_task/logic/model/restaurant.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    final rest = ModalRoute.of(context)?.settings.arguments as Map;
+    final RestaurantCard restaurant = rest['restaurant'];
+    final int index = rest['index'];
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -13,7 +18,7 @@ class DetailScreen extends StatelessWidget {
             Stack(
               children: [
                 Image.network(
-                  'https://www.cnu.org/sites/default/files/styles/public_square_feature_image/public/beverly-center-lighting.jpg?itok=gHo9QySd',
+                  '${restaurant.restaurants?[index].images?[0].url}',
                   width: 400,
                   height: 250,
                 ),
@@ -48,13 +53,13 @@ class DetailScreen extends StatelessWidget {
                           Icons.favorite_border,
                           color: Colors.white,
                         ))),
-                const Positioned.fill(
+                 Positioned.fill(
                     top: 20,
                     child: Align(
                         alignment: Alignment.topCenter,
                         child: Text(
-                          'Esentai Mall',
-                          style: TextStyle(
+                          '${restaurant.restaurants?[index].title}',
+                          style: const TextStyle(
                               fontSize: 16,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),
@@ -68,11 +73,11 @@ class DetailScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 17),
               child: Text('Описание',style: TextStyle(fontSize: 15,fontFamily: 'Manrope',fontWeight: FontWeight.w400,color: Color.fromRGBO(	146, 146, 146,1)),),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16,top: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 16,top: 5),
               child: Text(
-                'Новый способ обжарки хачапури только у нас. И вкуснейшие салатики малибу и ...',
-                style: TextStyle(
+                '${restaurant.restaurants?[index].description}',
+                style: const TextStyle(
                     fontSize: 19,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
@@ -90,13 +95,13 @@ class DetailScreen extends StatelessWidget {
               leading: const Icon(Icons.access_time_outlined,color: Colors.black,),
               title: Transform.translate(
                 offset: const Offset(-20, 0),
-                  child: const Text('Работаем с 20:00 до 18:00 ',style: TextStyle(color: Colors.black,fontSize: 16,fontWeight:FontWeight.w400,fontFamily: 'Manrope'),)),
+                  child: Text('Работаем c ${restaurant.restaurants?[index].schedule?.opening} до ${restaurant.restaurants?[index].schedule?.closing} ',style: TextStyle(color: Colors.black,fontSize: 16,fontWeight:FontWeight.w400,fontFamily: 'Manrope'),)),
             ),
             ListTile(
               leading: const Icon(Icons.place_outlined,color: Colors.black,),
               title: Transform.translate(
                   offset: const Offset(-20, 0),
-                  child: const Text('Аль-Фараби',style: TextStyle(color: Colors.black))),
+                  child: Text('${restaurant.restaurants?[index].coords?.addressName}',style: const TextStyle(color: Colors.black))),
             ),
             const Divider(
               color: Colors.grey,

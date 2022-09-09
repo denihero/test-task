@@ -13,6 +13,14 @@ class AuthError extends AuthState {
 
   AuthError({required this.error});
 }
-class AuthLoginSuccess extends AuthState {}
+class AuthLoginSuccess extends AuthState {
+  final Auth auth;
+
+  AuthLoginSuccess({required this.auth});
+
+  @override
+  List<Object> get props => [auth];
+
+}
 class AuthRegisterSuccess extends AuthState {}
 class AuthWrongPassword extends AuthState {}

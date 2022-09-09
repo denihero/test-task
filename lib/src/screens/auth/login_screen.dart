@@ -3,6 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:test_task/logic/bloc/auth_bloc.dart';
+import 'package:test_task/logic/model/restaurant.dart';
+import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
+import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/src/screens/auth/widget/primary_button.dart';
 import 'package:test_task/src/screens/auth/widget/email_or_name_tff.dart';
 import 'package:test_task/src/screens/auth/widget/line.dart';
@@ -86,10 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (_formKey.currentState!.validate()) {
                         check(emailController.text)
                             ? context.read<AuthBloc>().add(LoginEmailEvent(
-                                email: emailController.text,
+                                email: emailController.text.replaceAll(' ', ''),
                                 password: passwordController.text))
                             : context.read<AuthBloc>().add(LoginNickNameEvent(
-                                nickname: emailController.text,
+                                nickname: emailController.text.replaceAll(' ', ''),
                                 password: passwordController.text));
                       } else {
                         return;
@@ -119,6 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 .showSnackBar(SnackBar(content: Text(errorMessage)));
           });
         } else if (state is AuthLoginSuccess) {
+          final token = state.auth;
+          print(token.tokens!.accessToken!);
+          BlocProvider.of<RestaurantCubit>(context).getRestaurant(token.tokens!.accessToken!);
+          BlocProvider.of<ProfileCubit>(context).getProfile(token.tokens!.accessToken!);
           SchedulerBinding.instance.addPostFrameCallback((_) async {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (route) => false);

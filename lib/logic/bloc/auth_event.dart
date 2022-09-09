@@ -27,3 +27,5 @@ class LoginNickNameEvent extends AuthEvent{
   LoginNickNameEvent({required this.nickname, required this.password});
 }
 
+class AuthLogout extends AuthEvent{}
+

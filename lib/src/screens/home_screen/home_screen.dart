@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  List<Widget> pages = [
+  List<Widget> pages = const [
     HomePage(),
     MapPage(),
     FavouritePage(),

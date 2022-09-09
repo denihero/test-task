@@ -68,30 +68,26 @@ class User {
   };
 }
 
-class AuthError {
-  AuthError({
-    this.name,
-    this.message,
-    this.status,
-    this.errors,
+class Profile {
+  Profile({
+    this.id,
+    this.email,
+    this.nickname,
   });
 
-  String? name;
-  String? message;
-  int? status;
-  List<dynamic>? errors;
+  int? id;
+  String? email;
+  String? nickname;
 
-  factory AuthError.fromJson(Map<String, dynamic> json) => AuthError(
-    name: json["name"],
-    message: json["message"],
-    status: json["status"],
-    errors: json["errors"] == null ? null : List<dynamic>.from(json["errors"].map((x) => x)),
+  factory Profile.fromJson(Map<String, dynamic> json) => Profile(
+    id: json["id"],
+    email: json["email"],
+    nickname: json["nickname"],
   );
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "message": message,
-    "status": status,
-    "errors": errors == null ? null : List<dynamic>.from(errors!.map((x) => x)),
+    "id": id,
+    "email": email,
+    "nickname": nickname,
   };
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/src/screens/home_screen/widget/info_card.dart';
 
 class FavouritePage extends StatelessWidget {
@@ -9,19 +11,30 @@ class FavouritePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.02),
       appBar: AppBar(
-        title: const Text('Избранное',style: TextStyle(color: Colors.black),),
+        title: const Text('Избранное', style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
       ),
-      body: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context,index){
-            return const Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: InfoCard(),
+      body: BlocBuilder<RestaurantCubit, RestaurantState>(
+        builder: (context, state) {
+          if(state is RestaurantSuccess){
+            final restaurant = state.restaurant;
+            return ListView.builder(
+              itemCount: restaurant.length,
+              itemBuilder: (context, index) {
+                return  Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: InfoCard(
+                    restaurant: restaurant[index],
+                    index: index,
+                  ),
+                );
+              },
             );
-          },
+          }
+          return const SizedBox();
+        },
       ),
     );
   }
