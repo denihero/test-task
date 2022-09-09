@@ -1,8 +1,22 @@
 part of 'auth_bloc.dart';
 
 abstract class AuthState extends Equatable {
+
+  final Auth? auth;
+  const AuthState({this.auth});
+
+  Map<String,dynamic> toJson() {
+    return {'auth': auth};
+  }
+
+  fromMap(Map<String,dynamic> map) {
+    return AuthLoginSuccess(auth: map['auth'] as Auth);
+  }
+
+
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [auth!];
 }
 
 class AuthInitial extends AuthState {}
@@ -16,7 +30,8 @@ class AuthError extends AuthState {
 class AuthLoginSuccess extends AuthState {
   final Auth auth;
 
-  AuthLoginSuccess({required this.auth});
+
+  const AuthLoginSuccess({required this.auth});
 
   @override
   List<Object> get props => [auth];

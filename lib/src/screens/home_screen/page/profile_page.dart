@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_task/logic/bloc/auth_bloc.dart';
 import 'package:test_task/logic/model/auth_model.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
@@ -33,9 +34,12 @@ class _ProfilePageState extends State<ProfilePage> {
               final result = state.profile;
               return Column(
                 children: [
-                  const Icon(
-                    Icons.person,
-                    size: 150,
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  SvgPicture.asset('assets/icons/profile.svg',width: 80,height: 80,color: Colors.black,),
+                  const SizedBox(
+                    height: 15,
                   ),
                   Text(
                     '${result.nickname}',
