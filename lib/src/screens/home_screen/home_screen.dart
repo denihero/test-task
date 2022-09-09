@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_task/src/screens/home_screen/page/favourite_page.dart';
 import 'package:test_task/src/screens/home_screen/page/home_page.dart';
 import 'package:test_task/src/screens/home_screen/page/map_page.dart';
@@ -42,21 +43,21 @@ class _HomeScreenState extends State<HomeScreen> {
             showUnselectedLabels: true,
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: SvgPicture.asset('assets/icons/lenta.svg',height: 23,width: 23,color:_selectedIndex == 0 ?const Color.fromRGBO(70,49,210,1):Colors.black),
                   label: 'Лента',
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.map),
+                  icon: SvgPicture.asset('assets/icons/map.svg',height: 23,width: 23,color:_selectedIndex == 1 ?const Color.fromRGBO(70,49,210,1):Colors.black),
                   label: 'Карта'
               ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Избранное'
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_outline),
+                  label: 'Избранные'
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
+                  icon: SvgPicture.asset('assets/icons/profile.svg',height: 23,width: 23,color:_selectedIndex == 3 ?const Color.fromRGBO(70,49,210,1):Colors.black),
                   label: 'Профиль'
               ),
             ]
