@@ -20,6 +20,15 @@ class _PasswordTFFState extends State<PasswordTFF> {
         return TextFormField(
           controller: widget.controller,
             obscureText: newIsShowed,
+            validator: (value) {
+              if(value == null || value.isEmpty || value.length < 7){
+                return 'Пожалуйста заполните поле ';
+              }else if(value.length <= 7){
+                return 'Пароль должен состоять больше 8 символов';
+              }else{
+                return null;
+              }
+            },
             decoration: InputDecoration(
                 filled: true,
                 border: InputBorder.none,

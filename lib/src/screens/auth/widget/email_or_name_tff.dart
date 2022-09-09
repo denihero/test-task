@@ -12,6 +12,13 @@ class EmailOrNameTFF extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: isNameOrLogin ? TextInputType.name:TextInputType.emailAddress,
+      validator: (value) {
+        if(value == null || value.isEmpty){
+          return 'Пожалуйста заполните поле';
+        }else{
+          return null;
+        }
+      },
       decoration: InputDecoration(
         filled: true,
         border: InputBorder.none,

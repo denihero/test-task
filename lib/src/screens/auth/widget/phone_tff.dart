@@ -10,6 +10,13 @@ class PhoneTFF extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.number,
+      validator: (value) {
+        if(value == null || value.isEmpty){
+          return 'Пожалуйста заполните поле';
+        }else{
+          return null;
+        }
+      },
       decoration: const InputDecoration(
         filled: true,
         border: InputBorder.none,
