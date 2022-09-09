@@ -23,10 +23,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<LoginEvent>((event, emit) async{
+    on<LoginEmailEvent>((event, emit) async{
       emit(AuthLoading());
       try{
-        var loginResult = await login(event.email, event.password);
+        var loginResult = await loginViaEmail(event.email, event.password);
+        emit(AuthLoginSuccess());
+      }catch(e,s){
+        print(e);
+        emit(AuthError(error:e.toString()));
+      }
+    });
+
+    on<LoginNickNameEvent>((event, emit) async{
+      emit(AuthLoading());
+      try{
+        var loginResult = await loginViaNickname(event.nickname, event.password);
         emit(AuthLoginSuccess());
       }catch(e,s){
         print(e);

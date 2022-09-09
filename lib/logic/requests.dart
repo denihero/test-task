@@ -19,7 +19,7 @@ Future<void> register(String email,String nickname,String phone,String password)
   }
 }
 
-Future<void> login(String email,String password) async{
+Future<void> loginViaEmail(String email,String password) async{
     var response = await http.post(Uri.parse('${Api.api}/api/v1/auth/login'),body: {
       "email": email,
       "password": password
@@ -29,4 +29,15 @@ Future<void> login(String email,String password) async{
     if(response.statusCode == 200){
       return jsonDecode(response.body);
     }
+}
+Future<void> loginViaNickname(String nickname,String password) async{
+  var response = await http.post(Uri.parse('${Api.api}/api/v1/auth/login'),body: {
+    "nickname": nickname,
+    "password": password
+  });
+
+  if(response.statusCode >= 400) throw jsonDecode(response.body)['message'];
+  if(response.statusCode == 200){
+    return jsonDecode(response.body);
+  }
 }

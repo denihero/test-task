@@ -21,6 +21,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool check(String email) {
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+
+    if (!emailValid) {
+      return false;
+    }
+    return true;
+  }
+
   @override
   void initState() {
     emailController = TextEditingController();
@@ -49,7 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 0,
       ),
       body: BlocConsumer<AuthBloc, AuthState>(builder: (context, state) {
-        if (state is AuthInitial || state is AuthRegisterSuccess || state is AuthError) {
+        if (state is AuthInitial ||
+            state is AuthRegisterSuccess ||
+            state is AuthError) {
           return Form(
             key: _formKey,
             child: Column(
@@ -71,9 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     title: 'Войти',
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(LoginEvent(
-                            email: emailController.text,
-                            password: passwordController.text));
+                        check(emailController.text)
+                            ? context.read<AuthBloc>().add(LoginEmailEvent(
+                                email: emailController.text,
+                                password: passwordController.text))
+                            : context.read<AuthBloc>().add(LoginNickNameEvent(
+                                nickname: emailController.text,
+                                password: passwordController.text));
                       } else {
                         return;
                       }
@@ -101,12 +118,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(errorMessage)));
           });
-        }else if(state is AuthLoginSuccess){
+        } else if (state is AuthLoginSuccess) {
           SchedulerBinding.instance.addPostFrameCallback((_) async {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (route) => false);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Вы успешно вошли')));
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Вы успешно вошли')));
           });
         }
       }),
