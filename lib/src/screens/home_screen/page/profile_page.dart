@@ -13,8 +13,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +28,19 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         body: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
-            if(state is ProfileSuccess) {
+            if (state is ProfileSuccess) {
               final result = state.profile;
               return Column(
                 children: [
                   const SizedBox(
                     height: 40,
                   ),
-                  SvgPicture.asset('assets/icons/profile.svg',width: 80,height: 80,color: Colors.black,),
+                  SvgPicture.asset(
+                    'assets/icons/profile.svg',
+                    width: 80,
+                    height: 80,
+                    color: Colors.black,
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -47,7 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         fontStyle: FontStyle.normal),
-
                   ),
                   Text(
                     '${result.email}',
@@ -64,9 +66,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     tileColor: Colors.white,
                     onTap: () {
                       BlocProvider.of<AuthBloc>(context).add(AuthLogoutEvent());
-                      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(content: Text('Вы успешно вышли')));
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/', (route) => false);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Вы успешно вышли')));
                     },
                     title: Text(
                       'Выйти',
@@ -76,10 +79,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               );
-            }else if(state is ProfileLoading){
-              return const Center(child: CircularProgressIndicator(),);
-            }else if(state is ProfileError){
-              return const Center(child: Text('Something get wrong'),);
+            } else if (state is ProfileLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is ProfileError) {
+              return const Center(
+                child: Text('Something get wrong'),
+              );
             }
             return const SizedBox();
           },

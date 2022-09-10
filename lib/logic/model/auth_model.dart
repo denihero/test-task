@@ -14,14 +14,14 @@ class Auth {
   Tokens? tokens;
 
   factory Auth.fromJson(Map<String, dynamic> json) => Auth(
-    user: User.fromJson(json["user"]),
-    tokens: Tokens.fromJson(json["tokens"]),
-  );
+        user: User.fromJson(json["user"]),
+        tokens: Tokens.fromJson(json["tokens"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "user": user?.toJson(),
-    "tokens": tokens?.toJson(),
-  };
+        "user": user?.toJson(),
+        "tokens": tokens?.toJson(),
+      };
 }
 
 class Tokens {
@@ -34,14 +34,14 @@ class Tokens {
   String? refreshToken;
 
   factory Tokens.fromJson(Map<String, dynamic> json) => Tokens(
-    accessToken: json["accessToken"],
-    refreshToken: json["refreshToken"],
-  );
+        accessToken: json["accessToken"],
+        refreshToken: json["refreshToken"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "accessToken": accessToken,
-    "refreshToken": refreshToken,
-  };
+        "accessToken": accessToken,
+        "refreshToken": refreshToken,
+      };
 }
 
 class User {
@@ -56,16 +56,16 @@ class User {
   String? nickname;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["id"],
-    email: json["email"],
-    nickname: json["nickname"],
-  );
+        id: json["id"],
+        email: json["email"],
+        nickname: json["nickname"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "email": email,
-    "nickname": nickname,
-  };
+        "id": id,
+        "email": email,
+        "nickname": nickname,
+      };
 }
 
 class Profile {
@@ -80,14 +80,14 @@ class Profile {
   String? nickname;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-    id: json["id"],
-    email: json["email"],
-    nickname: json["nickname"],
-  );
+        id: json["id"],
+        email: json["email"],
+        nickname: json["nickname"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "email": email,
-    "nickname": nickname,
-  };
+        "id": id,
+        "email": email,
+        "nickname": nickname,
+      };
 }

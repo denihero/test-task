@@ -11,9 +11,9 @@ class PhoneTFF extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.number,
       validator: (value) {
-        if(value == null || value.isEmpty){
+        if (value == null || value.isEmpty) {
           return 'Пожалуйста заполните поле';
-        }else{
+        } else {
           return null;
         }
       },
@@ -24,10 +24,9 @@ class PhoneTFF extends StatelessWidget {
         hintStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(195, 195, 195, 1)
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16,vertical: 20),
-        hintText:'Телефон',
+            color: Color.fromRGBO(195, 195, 195, 1)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        hintText: 'Телефон',
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PasswordTFF extends StatefulWidget {
-  const PasswordTFF({Key? key, this.showHideIcon = true, required this.controller}) : super(key: key);
+  const PasswordTFF(
+      {Key? key, this.showHideIcon = true, required this.controller})
+      : super(key: key);
   final bool showHideIcon;
   final TextEditingController controller;
 
@@ -18,20 +20,18 @@ class _PasswordTFFState extends State<PasswordTFF> {
       valueListenable: isShowed,
       builder: (BuildContext context, bool newIsShowed, _) {
         return TextFormField(
-          controller: widget.controller,
+            controller: widget.controller,
             obscureText: newIsShowed,
-
             validator: (value) {
-              if(value == null || value.isEmpty || value.length < 7){
+              if (value == null || value.isEmpty || value.length < 7) {
                 return 'Пожалуйста заполните поле ';
-              }else if(value.length <= 7){
+              } else if (value.length <= 7) {
                 return 'Пароль должен состоять больше 8 символов';
-              }else{
+              } else {
                 return null;
               }
             },
             decoration: InputDecoration(
-
                 filled: true,
                 border: InputBorder.none,
                 fillColor: Colors.white,
@@ -48,8 +48,14 @@ class _PasswordTFFState extends State<PasswordTFF> {
                           isShowed.value = !isShowed.value;
                         },
                         icon: newIsShowed
-                            ? const Icon(Icons.visibility_off,color: Colors.black,)
-                            : const Icon(Icons.visibility,color: Colors.black,))
+                            ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.black,
+                              )
+                            : const Icon(
+                                Icons.visibility,
+                                color: Colors.black,
+                              ))
                     : const SizedBox()));
       },
     );

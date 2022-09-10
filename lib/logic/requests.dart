@@ -25,7 +25,6 @@ Future<void> register(
 }
 
 Future<Auth> loginViaEmail(String email, String password) async {
-
   var response = await http.post(Uri.parse('${Api.api}/api/v1/auth/login'),
       body: {"email": email, "password": password});
   final data = jsonDecode(response.body);
@@ -38,8 +37,6 @@ Future<Auth> loginViaEmail(String email, String password) async {
 }
 
 Future<Auth> loginViaNickname(String nickname, String password) async {
-
-
   var response = await http.post(Uri.parse('${Api.api}/api/v1/auth/login'),
       body: {"nickname": nickname, "password": password});
   final data = jsonDecode(response.body);
@@ -52,7 +49,6 @@ Future<Auth> loginViaNickname(String nickname, String password) async {
 }
 
 Future<RestaurantInfo> fetchRestaurant(String token) async {
-
   var response = await http.get(
       Uri.parse('${Api.api}/api/v1/restaurants/all?page=1&perPage=10'),
       headers: {
@@ -67,12 +63,11 @@ Future<RestaurantInfo> fetchRestaurant(String token) async {
   return RestaurantInfo.fromJson(data);
 }
 
-Future<DetailRestaurant> fetchRestaurantDetail(String token,int id) async {
-  var response = await http.get(
-      Uri.parse('${Api.api}/api/v1/restaurants/details/$id'),
-      headers: {
-        'Authorization': 'Bearer $token',
-      });
+Future<DetailRestaurant> fetchRestaurantDetail(String token, int id) async {
+  var response = await http
+      .get(Uri.parse('${Api.api}/api/v1/restaurants/details/$id'), headers: {
+    'Authorization': 'Bearer $token',
+  });
   final data = jsonDecode(response.body);
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 200) {
@@ -83,8 +78,9 @@ Future<DetailRestaurant> fetchRestaurantDetail(String token,int id) async {
   return DetailRestaurant.fromJson(data);
 }
 
-Future<RestaurantInfo> fetchFavourite(String token) async{
-  var response = await http.get(Uri.parse('${Api.api}/api/v1/likes/all'), headers: {
+Future<RestaurantInfo> fetchFavourite(String token) async {
+  var response =
+      await http.get(Uri.parse('${Api.api}/api/v1/likes/all'), headers: {
     'Authorization': 'Bearer $token',
   });
 
@@ -95,8 +91,8 @@ Future<RestaurantInfo> fetchFavourite(String token) async{
   }
 
   return RestaurantInfo.fromJson(data);
-
 }
+
 Future<Profile> fetchProfile(String token) async {
   var response = await http
       .get(Uri.parse('${Api.api}/api/v1/auth/login/profile'), headers: {
@@ -110,24 +106,12 @@ Future<Profile> fetchProfile(String token) async {
   return Profile.fromJson(data);
 }
 
-Future<void> addToFavourite(String token,int id) async{
-  var response = await http.post(Uri.parse('${Api.api}/api/v1/likes/new'),headers: {
+Future<void> addToFavourite(String token, int id) async {
+  var response =
+      await http.post(Uri.parse('${Api.api}/api/v1/likes/new'), headers: {
     'Authorization': 'Bearer $token',
-  },body: {
-   'restaurant_id':"$id"
-  }
-
-  );
-  if (response.statusCode >= 400) throw jsonDecode(response.body)['message'];
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body);
-  }
-}
-
-
-Future<void> deleteFromFavourite(String token,int id) async{
-  var response = await http.delete(Uri.parse('${Api.api}/api/v1/likes/$id'),headers: {
-    'Authorization': 'Bearer $token',
+  }, body: {
+    'restaurant_id': "$id"
   });
   if (response.statusCode >= 400) throw jsonDecode(response.body)['message'];
   if (response.statusCode == 200) {
@@ -135,3 +119,13 @@ Future<void> deleteFromFavourite(String token,int id) async{
   }
 }
 
+Future<void> deleteFromFavourite(String token, int id) async {
+  var response =
+      await http.delete(Uri.parse('${Api.api}/api/v1/likes/$id'), headers: {
+    'Authorization': 'Bearer $token',
+  });
+  if (response.statusCode >= 400) throw jsonDecode(response.body)['message'];
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  }
+}

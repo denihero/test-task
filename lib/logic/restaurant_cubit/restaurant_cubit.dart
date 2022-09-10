@@ -9,31 +9,31 @@ part 'restaurant_state.dart';
 class RestaurantCubit extends Cubit<RestaurantState> {
   RestaurantCubit() : super(RestaurantInitial());
 
-  void getRestaurant(String token) async{
+  void getRestaurant(String token) async {
     emit(RestaurantLoading());
-    try{
+    try {
       var result = await fetchRestaurant(token);
       emit(RestaurantSuccess(restaurant: result));
-    }catch(e,s){
+    } catch (e, s) {
       print(s);
       print(e);
       emit(RestaurantError());
     }
   }
 
-
-  void searchRestaurant(String token,String query)async{
+  void searchRestaurant(String token, String query) async {
     emit(RestaurantLoading());
-    try{
+    try {
       var result = await fetchRestaurant(token);
-      List<Restaurant>? searchResult = result.restaurants?.where((element) => element.title!.toLowerCase().contains(query.toLowerCase())).toList();
+      List<Restaurant>? searchResult = result.restaurants
+          ?.where((element) =>
+              element.title!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
       emit(RestaurantSearchSuccess(restaurant: searchResult!));
-    }catch(e,s){
+    } catch (e, s) {
       print(s);
       print(e);
       emit(RestaurantError());
     }
   }
-
-
 }

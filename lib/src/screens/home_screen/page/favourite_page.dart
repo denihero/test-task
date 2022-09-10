@@ -14,30 +14,35 @@ class FavouritePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.02),
       appBar: AppBar(
-        title: Text('Избранное', style: GoogleFonts.manrope(color: Colors.black),),
+        title: Text(
+          'Избранное',
+          style: GoogleFonts.manrope(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
       ),
       body: RefreshIndicator(
-        onRefresh: () async{
-          BlocProvider.of<FavouriteCubit>(context).getFavourite(Api.token(context));
+        onRefresh: () async {
+          BlocProvider.of<FavouriteCubit>(context)
+              .getFavourite(Api.token(context));
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BlocBuilder<FavouriteCubit, FavouriteState>(
               builder: (context, state) {
-                if(state is FavouriteSuccess){
+                if (state is FavouriteSuccess) {
                   final restaurant = state.restaurant;
-                  if(restaurant.restaurants!.isEmpty){
-                    return const Center(child: Text('You don\'t have favourite '));
-                  }else{
+                  if (restaurant.restaurants!.isEmpty) {
+                    return const Center(
+                        child: Text('You don\'t have favourite '));
+                  } else {
                     return Expanded(
                       child: ListView.builder(
                         itemCount: restaurant.restaurants?.length,
                         itemBuilder: (context, index) {
-                          return  Padding(
+                          return Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: InfoCard(
                               restaurant: restaurant.restaurants![index],
@@ -47,9 +52,11 @@ class FavouritePage extends StatelessWidget {
                       ),
                     );
                   }
-                }else if(state is FavouriteError){
-                  return const Center(child: Text('Something get wrong'),);
-                }else if(state is FavouriteLoading){
+                } else if (state is FavouriteError) {
+                  return const Center(
+                    child: Text('Something get wrong'),
+                  );
+                } else if (state is FavouriteLoading) {
                   return Expanded(
                     child: ListView.builder(
                         itemCount: 3,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 class ShimmerCardLoading extends StatelessWidget {
   const ShimmerCardLoading({Key? key}) : super(key: key);
 
@@ -17,7 +16,7 @@ class ShimmerCardLoading extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             ClipRRect(
+            ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(6)),
                 child: Shimmer.fromColors(
                   baseColor: Colors.grey[300]!,
@@ -29,19 +28,18 @@ class ShimmerCardLoading extends StatelessWidget {
                   ),
                 )),
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 11),
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[200]!,
-                child: Container(
-                  height: 15,
-                  width: 100,
-                  color: Colors.white,
-                ),
-              )
-            ),
+                padding: const EdgeInsets.only(left: 16, top: 11),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[200]!,
+                  child: Container(
+                    height: 15,
+                    width: 100,
+                    color: Colors.white,
+                  ),
+                )),
             Row(
-              children:[
+              children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 16, top: 10),
                   child: Shimmer.fromColors(
@@ -54,7 +52,6 @@ class ShimmerCardLoading extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             )
           ],

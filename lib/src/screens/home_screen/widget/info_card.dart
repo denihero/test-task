@@ -40,9 +40,7 @@ class InfoCard extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                   child: CachedNetworkImage(
                     imageUrl:
-                        '${restaurant.images!.isEmpty
-                            ? 'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8='
-                            : restaurant.images?[0].url}',
+                        '${restaurant.images!.isEmpty ? 'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=' : restaurant.images?[0].url}',
                     placeholder: (context, url) => const SpinKitDoubleBounce(
                       color: Colors.blue,
                     ),
@@ -59,9 +57,9 @@ class InfoCard extends StatelessWidget {
                 child: Text(
                   '${restaurant.title}',
                   style: GoogleFonts.manrope(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.normal,
                   ),
                 ),
               ),
@@ -79,8 +77,7 @@ class InfoCard extends StatelessWidget {
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
-                            color: Colors.grey
-                        ),
+                            color: Colors.grey),
                       ),
                     ),
                   ),

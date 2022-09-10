@@ -6,8 +6,11 @@ abstract class FavouriteState extends Equatable {
 }
 
 class FavouriteInitial extends FavouriteState {}
+
 class FavouriteLoading extends FavouriteState {}
+
 class FavouriteError extends FavouriteState {}
+
 class FavouriteSuccess extends FavouriteState {
   final RestaurantInfo restaurant;
 

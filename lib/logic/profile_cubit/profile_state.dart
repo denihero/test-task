@@ -6,8 +6,11 @@ abstract class ProfileState extends Equatable {
 }
 
 class ProfileInitial extends ProfileState {}
+
 class ProfileError extends ProfileState {}
+
 class ProfileLoading extends ProfileState {}
+
 class ProfileSuccess extends ProfileState {
   final Profile profile;
 
@@ -15,5 +18,4 @@ class ProfileSuccess extends ProfileState {
 
   @override
   List<Object> get props => [profile];
-
 }

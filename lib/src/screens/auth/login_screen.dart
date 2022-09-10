@@ -92,7 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 email: emailController.text.replaceAll(' ', ''),
                                 password: passwordController.text))
                             : context.read<AuthBloc>().add(LoginNickNameEvent(
-                                nickname: emailController.text.replaceAll(' ', ''),
+                                nickname:
+                                    emailController.text.replaceAll(' ', ''),
                                 password: passwordController.text));
                       } else {
                         return;
@@ -111,9 +112,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         } else if (state is AuthLoading) {
-          return const Center(child: SpinKitDoubleBounce(color: Colors.blue,));
+          return const Center(
+              child: SpinKitDoubleBounce(
+            color: Colors.blue,
+          ));
         }
-        return const Center(child: SpinKitDoubleBounce(color: Colors.blue,));
+        return const Center(
+            child: SpinKitDoubleBounce(
+          color: Colors.blue,
+        ));
       }, listener: (context, state) {
         if (state is AuthError) {
           final errorMessage = state.error;

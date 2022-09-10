@@ -6,7 +6,9 @@ abstract class RestaurantState extends Equatable {
 }
 
 class RestaurantInitial extends RestaurantState {}
+
 class RestaurantError extends RestaurantState {}
+
 class RestaurantLoading extends RestaurantState {}
 
 class RestaurantSuccess extends RestaurantState {
@@ -17,6 +19,7 @@ class RestaurantSuccess extends RestaurantState {
   @override
   List<Object> get props => [restaurant];
 }
+
 class RestaurantSearchSuccess extends RestaurantState {
   final List<Restaurant> restaurant;
 
@@ -25,4 +28,3 @@ class RestaurantSearchSuccess extends RestaurantState {
   @override
   List<Object> get props => [restaurant];
 }
-

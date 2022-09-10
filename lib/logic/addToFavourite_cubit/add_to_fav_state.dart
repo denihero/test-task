@@ -6,6 +6,9 @@ abstract class AddToFavState extends Equatable {
 }
 
 class AddToFavInitial extends AddToFavState {}
+
 class AddToFavError extends AddToFavState {}
+
 class AddToFavLoading extends AddToFavState {}
+
 class AddToFavSuccess extends AddToFavState {}

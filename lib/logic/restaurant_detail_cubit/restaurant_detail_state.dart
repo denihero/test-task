@@ -6,10 +6,12 @@ abstract class RestaurantDetailState extends Equatable {
 }
 
 class RestaurantDetailInitial extends RestaurantDetailState {}
-class RestaurantDetailError extends RestaurantDetailState {}
-class RestaurantDetailLoading extends RestaurantDetailState {}
-class RestaurantDetailSuccess extends RestaurantDetailState {
 
+class RestaurantDetailError extends RestaurantDetailState {}
+
+class RestaurantDetailLoading extends RestaurantDetailState {}
+
+class RestaurantDetailSuccess extends RestaurantDetailState {
   final DetailRestaurant detailRestaurant;
 
   RestaurantDetailSuccess({required this.detailRestaurant});

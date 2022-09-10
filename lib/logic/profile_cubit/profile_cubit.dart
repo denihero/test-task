@@ -8,12 +8,12 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
-  void getProfile(String token) async{
+  void getProfile(String token) async {
     emit(ProfileLoading());
-    try{
+    try {
       var result = await fetchProfile(token);
       emit(ProfileSuccess(profile: result));
-    }catch(e,s){
+    } catch (e, s) {
       print(e);
       print(s);
       emit(ProfileError());

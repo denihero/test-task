@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -35,33 +34,43 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white.withOpacity(0.92),
-        body:pages[_selectedIndex],
+        body: pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.black,
-            selectedItemColor: const Color.fromRGBO(70,49,210,1),
+            unselectedItemColor: Colors.black,
+            selectedItemColor: const Color.fromRGBO(70, 49, 210, 1),
             showSelectedLabels: true,
             showUnselectedLabels: true,
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             items: [
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/icons/lenta.svg',height: 23,width: 23,color:_selectedIndex == 0 ?const Color.fromRGBO(70,49,210,1):Colors.black),
-                  label: 'Лента',
+                icon: SvgPicture.asset('assets/icons/lenta.svg',
+                    height: 23,
+                    width: 23,
+                    color: _selectedIndex == 0
+                        ? const Color.fromRGBO(70, 49, 210, 1)
+                        : Colors.black),
+                label: 'Лента',
               ),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/icons/map.svg',height: 23,width: 23,color:_selectedIndex == 1 ?const Color.fromRGBO(70,49,210,1):Colors.black),
-                  label: 'Карта'
-              ),
+                  icon: SvgPicture.asset('assets/icons/map.svg',
+                      height: 23,
+                      width: 23,
+                      color: _selectedIndex == 1
+                          ? const Color.fromRGBO(70, 49, 210, 1)
+                          : Colors.black),
+                  label: 'Карта'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_outline),
-                  label: 'Избранные'
-              ),
+                  icon: Icon(Icons.favorite_outline), label: 'Избранные'),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/icons/profile.svg',height: 23,width: 23,color:_selectedIndex == 3 ?const Color.fromRGBO(70,49,210,1):Colors.black),
-                  label: 'Профиль'
-              ),
-            ]
-        ),
+                  icon: SvgPicture.asset('assets/icons/profile.svg',
+                      height: 23,
+                      width: 23,
+                      color: _selectedIndex == 3
+                          ? const Color.fromRGBO(70, 49, 210, 1)
+                          : Colors.black),
+                  label: 'Профиль'),
+            ]),
       ),
     );
   }

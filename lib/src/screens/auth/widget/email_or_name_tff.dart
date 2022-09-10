@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class EmailOrNameTFF extends StatelessWidget {
-  const EmailOrNameTFF({Key? key, required this.hintText, required this.controller, this.isNameOrLogin= true}) : super(key: key);
+  const EmailOrNameTFF(
+      {Key? key,
+      required this.hintText,
+      required this.controller,
+      this.isNameOrLogin = true})
+      : super(key: key);
 
   final String hintText;
   final TextEditingController controller;
@@ -11,11 +16,12 @@ class EmailOrNameTFF extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: isNameOrLogin ? TextInputType.name:TextInputType.emailAddress,
+      keyboardType:
+          isNameOrLogin ? TextInputType.name : TextInputType.emailAddress,
       validator: (value) {
-        if(value == null || value.isEmpty){
+        if (value == null || value.isEmpty) {
           return 'Пожалуйста заполните поле';
-        }else{
+        } else {
           return null;
         }
       },
@@ -26,10 +32,10 @@ class EmailOrNameTFF extends StatelessWidget {
         hintStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(195, 195, 195, 1)
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 19),
-        hintText:hintText,
+            color: Color.fromRGBO(195, 195, 195, 1)),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 19),
+        hintText: hintText,
       ),
     );
   }

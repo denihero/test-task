@@ -4,4 +4,3 @@ import 'package:test_task/app.dart';
 void main() async {
   runApp(const App());
 }
-

@@ -26,7 +26,8 @@ class App extends StatelessWidget {
         BlocProvider<ProfileCubit>(create: (context) => ProfileCubit()),
         BlocProvider<FavouriteCubit>(create: (context) => FavouriteCubit()),
         BlocProvider<AddToFavCubit>(create: (context) => AddToFavCubit()),
-        BlocProvider<RestaurantDetailCubit>(create: (context) => RestaurantDetailCubit()),
+        BlocProvider<RestaurantDetailCubit>(
+            create: (context) => RestaurantDetailCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
