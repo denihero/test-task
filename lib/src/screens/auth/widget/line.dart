@@ -8,8 +8,8 @@ class Line extends StatelessWidget {
     return const Divider(
       height: 1,
       indent: 20,
-      endIndent: 20 ,
-      color: Color.fromRGBO(224,230,237, 0.8),
+      endIndent: 20,
+      color: Colors.black,
     );
   }
 }

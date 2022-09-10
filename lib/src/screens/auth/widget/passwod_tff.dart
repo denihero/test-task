@@ -20,6 +20,7 @@ class _PasswordTFFState extends State<PasswordTFF> {
         return TextFormField(
           controller: widget.controller,
             obscureText: newIsShowed,
+
             validator: (value) {
               if(value == null || value.isEmpty || value.length < 7){
                 return 'Пожалуйста заполните поле ';
@@ -30,6 +31,7 @@ class _PasswordTFFState extends State<PasswordTFF> {
               }
             },
             decoration: InputDecoration(
+
                 filled: true,
                 border: InputBorder.none,
                 fillColor: Colors.white,
@@ -46,8 +48,8 @@ class _PasswordTFFState extends State<PasswordTFF> {
                           isShowed.value = !isShowed.value;
                         },
                         icon: newIsShowed
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility))
+                            ? const Icon(Icons.visibility_off,color: Colors.black,)
+                            : const Icon(Icons.visibility,color: Colors.black,))
                     : const SizedBox()));
       },
     );

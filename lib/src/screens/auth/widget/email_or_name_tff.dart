@@ -28,7 +28,7 @@ class EmailOrNameTFF extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: Color.fromRGBO(195, 195, 195, 1)
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 19),
         hintText:hintText,
       ),
     );

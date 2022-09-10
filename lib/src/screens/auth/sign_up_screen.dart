@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.92),
+      backgroundColor: const Color.fromRGBO(243, 244, 245, 1),
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
