@@ -10,7 +10,7 @@ class AddToFavCubit extends Cubit<AddToFavState> {
   Future<void> saveRestaurant(String token, int id) async {
     emit(AddToFavLoading());
     try {
-      var result = await addToFavourite(token, id);
+     await addToFavourite(token, id);
       emit(AddToFavSuccess());
     } catch (e, s) {
       print(e);
@@ -22,7 +22,7 @@ class AddToFavCubit extends Cubit<AddToFavState> {
   Future<void> deleteFavourite(String token, int id) async {
     emit(AddToFavLoading());
     try {
-      var result = await deleteFromFavourite(token, id);
+      await deleteFromFavourite(token, id);
       emit(AddToFavSuccess());
     } catch (e, s) {
       print(e);

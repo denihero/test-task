@@ -87,21 +87,21 @@ class _DetailScreenState extends State<DetailScreen> {
                           top: 5,
                           child: IconButton(
                               onPressed: () async {
+                                BlocProvider.of<RestaurantDetailCubit>(context)
+                                    .getRestaurantDetail(Api.token(context),
+                                    rest.restaurant![0].id!);
+                                Api.refresh(context);
                                 if (rest.restaurant![0].isFavourite!) {
-                                  BlocProvider.of<AddToFavCubit>(context)
+                                  await BlocProvider.of<AddToFavCubit>(context)
                                       .deleteFavourite(Api.token(context),
                                           rest.restaurant![0].id!);
                                 } else {
-                                  BlocProvider.of<AddToFavCubit>(context)
+                                  await BlocProvider.of<AddToFavCubit>(context)
                                       .saveRestaurant(Api.token(context),
                                           rest.restaurant![0].id!);
                                 }
-                                BlocProvider.of<RestaurantDetailCubit>(context)
-                                    .getRestaurantDetail(Api.token(context),
-                                        rest.restaurant![0].id!);
-                                Api.refresh(context);
                               },
-                              icon: rest.restaurant![0].isFavourite!
+                              icon: rest.restaurant![0].isFavourite! == true
                                   ? const Icon(
                                       Icons.favorite,
                                       color: Colors.red,
