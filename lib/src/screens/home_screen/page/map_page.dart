@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
+import 'dart:ui' as ui;
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -22,8 +25,9 @@ class _MapPageState extends State<MapPage> {
 
   late LocationData currentLocation;
   late PermissionStatus permission;
+  BitmapDescriptor myIcon = BitmapDescriptor.defaultMarker;
 
-  void _onMapCreated(GoogleMapController controller) {
+  void _onMapCreated(GoogleMapController controller) async {
     setState(() {
       mapController = controller;
     });
@@ -35,11 +39,10 @@ class _MapPageState extends State<MapPage> {
       final lat = currentLocation.latitude;
       final lng = currentLocation.longitude;
       final center = LatLng(lat!, lng!);
-      mapController.animateCamera(
-          CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
+      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(
               currentLocation.latitude ?? 0, currentLocation.longitude ?? 0),
-              zoom: 15))
-      );
+          zoom: 15)));
       return center;
     } on Exception {
       return null;
@@ -48,10 +51,17 @@ class _MapPageState extends State<MapPage> {
 
   final Set<Marker> markers = {};
 
+  @override
+  void initState() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(64, 64)),
+            'assets/icons/vector.png')
+        .then((value) => myIcon = value);
+    super.initState();
+  }
 
   @override
   void dispose() {
-    //mapController.dispose();
     super.dispose();
   }
 
@@ -60,16 +70,19 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       body: BlocBuilder<RestaurantCubit, RestaurantState>(
         builder: (context, state) {
-          if(state is RestaurantSuccess){
+          if (state is RestaurantSuccess) {
             final restMark = state.restaurant.restaurants;
-            for(var i = 0;i < restMark!.length;i++){
-              markers.add(Marker( //add first marker
+            for (var i = 0; i < restMark!.length; i++) {
+              markers.add(Marker(
+                //add first marker
                 markerId: MarkerId('${restMark[i].title}'),
-                position: LatLng(restMark[i].coords!.latitude!, restMark[i].coords!.longitude!), //position of marker
-                infoWindow: InfoWindow( //popup info
-                  title: '${restMark[i].coords?.addressName}',
-                ),
-                icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+                position: LatLng(restMark[i].coords!.latitude!,
+                    restMark[i].coords!.longitude!), //position of marker
+                infoWindow: InfoWindow(
+                    //popup info
+                    title: '${restMark[i].coords?.addressName}',
+                    snippet: '${restMark[i].title}'),
+                icon: myIcon, //Icon for Marker
               ));
             }
             return Stack(
@@ -100,27 +113,30 @@ class _MapPageState extends State<MapPage> {
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6)),
                               borderSide: BorderSide(
                                   width: 1,
-                                  color: Color.fromRGBO(224, 230, 237, 0.1)
-                              )),
+                                  color: Color.fromRGBO(224, 230, 237, 0.1))),
                           hintText: 'Поик',
                           contentPadding:
-                          EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+                              EdgeInsets.symmetric(horizontal: 1, vertical: 5),
                           prefixIcon: Icon(Icons.search)),
                     ),
                   ),
                 ),
               ],
             );
-          }else if(state is RestaurantLoading){
-            return const Center(child: CircularProgressIndicator(),);
-          }else if(state is RestaurantError){
-            return const Center(child: Text('Something get wrong'),);
+          } else if (state is RestaurantLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is RestaurantError) {
+            return const Center(
+              child: Text('Something get wrong'),
+            );
           }
           return const SizedBox();
-
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -128,7 +144,10 @@ class _MapPageState extends State<MapPage> {
         onPressed: () async {
           await getUserLocation();
         },
-        child: const Icon(Icons.location_on, color: Colors.black,),
+        child: const Icon(
+          Icons.location_on,
+          color: Colors.black,
+        ),
       ),
     );
   }
