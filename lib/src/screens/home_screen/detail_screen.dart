@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
@@ -6,8 +7,20 @@ import 'package:test_task/logic/restaurant_detail_cubit/restaurant_detail_cubit.
 import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+class DetailScreen extends StatefulWidget {
+  const DetailScreen({Key? key,this.maxTextSize = 69}) : super(key: key);
+
+  final int maxTextSize;
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+
+  String firstHalf = '';
+  String secondHalf = '';
+  ValueNotifier<bool> flag = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +30,16 @@ class DetailScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is RestaurantDetailSuccess) {
               final rest = state.detailRestaurant;
+
+              if (rest.restaurant![0].description!.length > widget.maxTextSize) {
+                firstHalf = rest.restaurant![0].description!.substring(0, widget.maxTextSize);
+                secondHalf = rest.restaurant![0].description!
+                    .substring(widget.maxTextSize, rest.restaurant![0].description!.length);
+              } else {
+                firstHalf = rest.restaurant![0].description!;
+                secondHalf = "";
+              }
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -24,10 +47,7 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl:
-                            '${rest.restaurant![0].images!.isEmpty
-                                ? 'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8='
-                                : rest.restaurant?[0].images?[0].url
-                            }',
+                            '${rest.restaurant![0].images!.isEmpty ? 'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=' : rest.restaurant?[0].images?[0].url}',
                         placeholder: (context, url) =>
                             const SpinKitDoubleBounce(
                           color: Colors.blue,
@@ -116,14 +136,37 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 16, top: 5),
-                    child: Text(
-                      '${rest.restaurant?[0].description}',
-                      style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black,
-                          fontFamily: 'Manrope'),
+                    child: ValueListenableBuilder(
+                      valueListenable: flag,
+                      builder: (BuildContext context, bool newFlag,_) {
+                        return RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text: newFlag ? "$firstHalf... " : (firstHalf + secondHalf),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Manrope'),
+                              ),
+                              TextSpan(
+                                  text: 'Подробнее',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      fontStyle: FontStyle.normal,
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                      fontFamily: 'Manrope'),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      setState(() {
+                                        flag.value = !flag.value;
+                                      });
+                                    }),
+                            ]));
+                      },
                     ),
                   ),
                   const SizedBox(
