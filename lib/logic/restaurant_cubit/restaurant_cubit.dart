@@ -22,4 +22,18 @@ class RestaurantCubit extends Cubit<RestaurantState> {
   }
 
 
+  void searchRestaurant(String token,String query)async{
+    emit(RestaurantLoading());
+    try{
+      var result = await fetchRestaurant(token);
+      List<Restaurant>? searchResult = result.restaurants?.where((element) => element.title!.toLowerCase().contains(query.toLowerCase())).toList();
+      emit(RestaurantSearchSuccess(restaurant: searchResult!));
+    }catch(e,s){
+      print(s);
+      print(e);
+      emit(RestaurantError());
+    }
+  }
+
+
 }

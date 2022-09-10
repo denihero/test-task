@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/home_screen/widget/shimmer_cart_loading.dart';
@@ -34,8 +33,8 @@ class _HomePageState extends State<HomePage> {
               height: 40,
               width: 360,
               child: TextFormField(
-                onChanged: (value){
-
+                onChanged: (value) {
+                  BlocProvider.of<RestaurantCubit>(context).searchRestaurant(Api.token(context), value);
                 },
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -78,6 +77,18 @@ class _HomePageState extends State<HomePage> {
                         itemCount: 3,
                         itemBuilder: (BuildContext context, int index) {
                           return const ShimmerCardLoading();
+                        }),
+                  );
+                }else if(state is RestaurantSearchSuccess){
+                  final searchResult = state.restaurant;
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: searchResult.length,
+                        itemBuilder: (context, index) {
+                          return  Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: InfoCard(restaurant: searchResult[index],),
+                          );
                         }),
                   );
                 }

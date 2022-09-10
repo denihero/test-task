@@ -25,7 +25,7 @@ class AuthError extends AuthState {
 
   final String error;
 
-  AuthError({required this.error});
+  const AuthError({required this.error});
 }
 class AuthLoginSuccess extends AuthState {
   final Auth auth;

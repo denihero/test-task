@@ -51,7 +51,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void dispose() {
-    mapController.dispose();
+    //mapController.dispose();
     super.dispose();
   }
 

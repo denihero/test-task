@@ -1,6 +1,4 @@
-import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:test_task/logic/model/auth_model.dart';
@@ -9,7 +7,7 @@ import 'package:test_task/logic/requests.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> with  HydratedMixin{
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
 
     on<RegisterEvent>((event, emit) async {
@@ -53,21 +51,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with  HydratedMixin{
     });
   }
 
-  @override
-  AuthState? fromJson(Map<String, dynamic> json) {
-    if(state is AuthLoginSuccess){
-      return state.fromMap(json);
-    }else{
-      return null;
-    }
-  }
 
-  @override
-  Map<String, dynamic>? toJson(AuthState state) {
-    if(state is AuthLoginSuccess){
-      return state.toJson();
-    }else{
-      return null;
-    }
-  }
 }
