@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_task/logic/auth/auth_bloc.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
 
@@ -19,9 +20,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         backgroundColor: Colors.grey.withOpacity(0.02),
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             'Профиль',
-            style: TextStyle(color: Colors.black),
+            style: GoogleFonts.manrope(color: Colors.black),
           ),
           backgroundColor: Colors.white,
           elevation: 0,
@@ -42,15 +43,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text(
                     '${result.nickname}',
-                    style: const TextStyle(
+                    style: GoogleFonts.manrope(
                         fontSize: 24,
-                        fontFamily: 'Manrope',
                         fontWeight: FontWeight.w600,
                         fontStyle: FontStyle.normal),
+
                   ),
                   Text(
                     '${result.email}',
-                    style: const TextStyle(
+                    style: GoogleFonts.manrope(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -67,9 +68,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(content: Text('Вы успешно вышли')));
                     },
-                    title: const Text(
+                    title: Text(
                       'Выйти',
-                      style: TextStyle(
+                      style: GoogleFonts.manrope(
                           color: Colors.red, fontWeight: FontWeight.w400),
                     ),
                   )

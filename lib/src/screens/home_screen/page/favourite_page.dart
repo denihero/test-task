@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/home_screen/widget/info_card.dart';
@@ -13,7 +14,7 @@ class FavouritePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.02),
       appBar: AppBar(
-        title: const Text('Избранное', style: TextStyle(color: Colors.black),),
+        title: Text('Избранное', style: GoogleFonts.manrope(color: Colors.black),),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,

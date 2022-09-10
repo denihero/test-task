@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
 import 'package:test_task/logic/restaurant_detail_cubit/restaurant_detail_cubit.dart';
 import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key,this.maxTextSize = 69}) : super(key: key);
+  const DetailScreen({Key? key, this.maxTextSize = 69}) : super(key: key);
 
   final int maxTextSize;
 
@@ -17,7 +18,6 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-
   String firstHalf = '';
   String secondHalf = '';
   ValueNotifier<bool> flag = ValueNotifier(true);
@@ -31,10 +31,13 @@ class _DetailScreenState extends State<DetailScreen> {
             if (state is RestaurantDetailSuccess) {
               final rest = state.detailRestaurant;
 
-              if (rest.restaurant![0].description!.length > widget.maxTextSize) {
-                firstHalf = rest.restaurant![0].description!.substring(0, widget.maxTextSize);
-                secondHalf = rest.restaurant![0].description!
-                    .substring(widget.maxTextSize, rest.restaurant![0].description!.length);
+              if (rest.restaurant![0].description!.length >
+                  widget.maxTextSize) {
+                firstHalf = rest.restaurant![0].description!
+                    .substring(0, widget.maxTextSize);
+                secondHalf = rest.restaurant![0].description!.substring(
+                    widget.maxTextSize,
+                    rest.restaurant![0].description!.length);
               } else {
                 firstHalf = rest.restaurant![0].description!;
                 secondHalf = "";
@@ -84,7 +87,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           top: 5,
                           child: IconButton(
                               onPressed: () async {
-                                if (rest.restaurant![0].isFavourite == true) {
+                                if (rest.restaurant![0].isFavourite!) {
                                   BlocProvider.of<AddToFavCubit>(context)
                                       .deleteFavourite(Api.token(context),
                                           rest.restaurant![0].id!);
@@ -113,7 +116,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               alignment: Alignment.topCenter,
                               child: Text(
                                 '${rest.restaurant?[0].title}',
-                                style: const TextStyle(
+                                style: GoogleFonts.manrope(
                                     fontSize: 16,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500),
@@ -123,49 +126,53 @@ class _DetailScreenState extends State<DetailScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 17),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 17),
                     child: Text(
                       'Описание',
-                      style: TextStyle(
+                      style: GoogleFonts.manrope(
                           fontSize: 15,
-                          fontFamily: 'Manrope',
                           fontWeight: FontWeight.w400,
-                          color: Color.fromRGBO(146, 146, 146, 1)),
+                          color: const Color.fromRGBO(146, 146, 146, 1)),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 16, top: 5),
                     child: ValueListenableBuilder(
                       valueListenable: flag,
-                      builder: (BuildContext context, bool newFlag,_) {
+                      builder: (BuildContext context, bool newFlag, _) {
                         return RichText(
                             text: TextSpan(children: [
-                              TextSpan(
-                                text: newFlag ? "$firstHalf... " : (firstHalf + secondHalf),
-                                style: const TextStyle(
+                          TextSpan(
+                            text: newFlag
+                                ? "$firstHalf... "
+                                : (firstHalf + secondHalf),
+                            style: GoogleFonts.manrope(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.black,
+                            ),
+                          ),
+                          rest.restaurant![0].description!.length >
+                                  widget.maxTextSize
+                              ? TextSpan(
+                                  text: 'Подробнее',
+                                  style: GoogleFonts.manrope(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
                                     fontStyle: FontStyle.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Manrope'),
-                              ),
-                              TextSpan(
-                                  text: 'Подробнее',
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline,
-                                      fontFamily: 'Manrope'),
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                  ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       setState(() {
                                         flag.value = !flag.value;
                                       });
-                                    }),
-                            ]));
+                                    })
+                              : const TextSpan(),
+                        ]));
                       },
                     ),
                   ),
@@ -184,24 +191,26 @@ class _DetailScreenState extends State<DetailScreen> {
                         offset: const Offset(-20, 0),
                         child: Text(
                           'Работаем c ${rest.restaurant?[0].schedule?.opening} до ${rest.restaurant?[0].schedule?.closing} ',
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Manrope'),
+                          style: GoogleFonts.manrope(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
                         )),
                   ),
                   ListTile(
-                    leading: const Icon(
-                      Icons.place_outlined,
-                      color: Colors.black,
-                    ),
-                    title: Transform.translate(
-                        offset: const Offset(-20, 0),
-                        child: Text(
+                      leading: const Icon(
+                        Icons.place_outlined,
+                        color: Colors.black,
+                      ),
+                      title: Transform.translate(
+                          offset: const Offset(-20, 0),
+                          child: Text(
                             '${rest.restaurant?[0].coords?.addressName}',
-                            style: const TextStyle(color: Colors.black))),
-                  ),
+                            style: GoogleFonts.manrope(
+                              color: Colors.black,
+                            ),
+                          ))),
                   const Divider(
                     color: Colors.grey,
                   ),

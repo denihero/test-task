@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
 import 'package:test_task/logic/model/detail_restaurant.dart';
 import 'package:test_task/logic/model/restaurant.dart';
@@ -57,11 +58,10 @@ class InfoCard extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16, top: 11),
                 child: Text(
                   '${restaurant.title}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Manrope',
-                    fontStyle: FontStyle.normal,
+                  style: GoogleFonts.manrope(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
                   ),
                 ),
               ),
@@ -75,12 +75,12 @@ class InfoCard extends StatelessWidget {
                         '${restaurant.description}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: const TextStyle(
+                        style: GoogleFonts.manrope(
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'Manrope',
-                            color: Colors.grey),
+                            color: Colors.grey
+                        ),
                       ),
                     ),
                   ),
