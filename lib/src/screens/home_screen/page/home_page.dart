@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/logic/string.dart';
+import 'package:test_task/src/screens/home_screen/widget/shimmer_cart_loading.dart';
 
 import '../widget/info_card.dart';
 
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                   final rest = state.restaurant;
                     return Expanded(
                       child: ListView.builder(
-                          itemCount: rest.count,
+                          itemCount: rest.restaurants?.length,
                           itemBuilder: (context, index) {
                             return  Padding(
                               padding: const EdgeInsets.only(top: 10),
@@ -69,7 +70,13 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Center(child: Text('Something get wrong'),));
                 }else if(state is RestaurantLoading){
-                  return const Center(child: CircularProgressIndicator(),);
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return const ShimmerCardLoading();
+                        }),
+                  );
                 }
                 return const SizedBox();
 

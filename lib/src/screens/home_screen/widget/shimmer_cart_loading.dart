@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 
 class ShimmerCardLoading extends StatelessWidget {
@@ -16,22 +17,42 @@ class ShimmerCardLoading extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(6)),
-                child: SizedBox(
-                  width: 370,
-                  height: 165,
+             ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[200]!,
+                  child: Container(
+                    width: 370,
+                    height: 165,
+                    color: Colors.white,
+                  ),
                 )),
-            const Padding(
-              padding: EdgeInsets.only(left: 16, top: 11),
-              child: SizedBox()
+            Padding(
+              padding: const EdgeInsets.only(left: 16, top: 11),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[200]!,
+                child: Container(
+                  height: 15,
+                  width: 100,
+                  color: Colors.white,
+                ),
+              )
             ),
             Row(
-              children: const [
+              children:[
                 Padding(
-                  padding: EdgeInsets.only(left: 16, top: 1),
-                  child: SizedBox(
-                    width: 290,),
+                  padding: const EdgeInsets.only(left: 16, top: 10),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[200]!,
+                    child: Container(
+                      height: 15,
+                      width: 290,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
 
               ],

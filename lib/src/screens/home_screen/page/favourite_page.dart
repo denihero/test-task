@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/src/screens/home_screen/widget/info_card.dart';
+import 'package:test_task/src/screens/home_screen/widget/shimmer_cart_loading.dart';
 
 class FavouritePage extends StatelessWidget {
   const FavouritePage({Key? key}) : super(key: key);
@@ -39,7 +40,13 @@ class FavouritePage extends StatelessWidget {
           }else if(state is FavouriteError){
             return const Center(child: Text('Something get wrong'),);
           }else if(state is FavouriteLoading){
-            return const Center(child: CircularProgressIndicator(),);
+            return Expanded(
+              child: ListView.builder(
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index) {
+                    return const ShimmerCardLoading();
+                  }),
+            );
           }
           return const SizedBox();
         },
