@@ -7,6 +7,7 @@ import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/logic/restaurant_detail/restaurant_detail_cubit.dart';
 import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
+import 'package:test_task/src/screens/home_screen/widget/detail_page_shimmer.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
@@ -165,8 +166,8 @@ class DetailScreen extends StatelessWidget {
               );
             } else if (state is RestaurantDetailError) {
               return const Center(child: Text('Something get wrong'));
-            } else if (state is RestaurantLoading) {
-              return const Center(child: CircularProgressIndicator());
+            } else if (state is RestaurantDetailLoading) {
+              return const SpinKitDoubleBounce(color: Colors.blue,);
             }
             return const SizedBox();
           },

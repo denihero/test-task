@@ -1,101 +1,36 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
-import 'package:test_task/logic/model/restaurant.dart';
-import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
-import 'package:test_task/logic/restaurant_detail/restaurant_detail_cubit.dart';
-import 'package:test_task/logic/string.dart';
-import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
+import 'package:shimmer/shimmer.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+
+class ShimmerDetailScreen extends StatelessWidget {
+  const ShimmerDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocBuilder<RestaurantDetailCubit, RestaurantDetailState>(
-          builder: (context, state) {
-            if (state is RestaurantDetailSuccess) {
-              final rest = state.detailRestaurant;
-              return Column(
+        body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Stack(
                     children: [
-                      CachedNetworkImage(
-                        imageUrl:
-                        'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
-                        placeholder: (context, url) =>
-                        const SpinKitDoubleBounce(
-                          color: Colors.blue,
-                        ),
-                        errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                      Container(
                         width: 370,
                         height: 165,
-                        fit: BoxFit.cover,
+                        color: Colors.white,
                       ),
-                      Container(
-                        width: 400,
-                        height: 10,
-                        decoration: const BoxDecoration(boxShadow: [
-                          BoxShadow(
-                              blurRadius: 90,
-                              spreadRadius: 70,
-                              offset: Offset(0, -25)),
-                        ]),
-                      ),
-                      Positioned(
-                          left: 10,
-                          top: 5,
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.white,
-                              ))),
-                      Positioned(
-                          right: 10,
-                          top: 5,
-                          child: IconButton(
-                              onPressed: () async {
-                                if (rest.restaurant![0].isFavourite == true) {
-                                  BlocProvider.of<AddToFavCubit>(context)
-                                      .deleteFavourite(
-                                      Api.token(context), rest.restaurant![0].id!);
-                                } else {
-                                  BlocProvider.of<AddToFavCubit>(context)
-                                      .saveRestaurant(
-                                      Api.token(context), rest.restaurant![0].id!);
-                                }
-                                BlocProvider.of<RestaurantDetailCubit>(context)
-                                    .getRestaurantDetail(Api.token(context),
-                                    rest.restaurant![0].id!);
-                                Api.refresh(context);
-                              },
-                              icon: rest.restaurant![0].isFavourite!
-                                  ? const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                                  : const Icon(
-                                Icons.favorite_outline,
-                                color: Colors.white,
-                              ))),
                       Positioned.fill(
                           top: 20,
                           child: Align(
                               alignment: Alignment.topCenter,
-                              child: Text(
-                                '${rest.restaurant?[0].title}',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[200]!,
+                                child: Container(
+                                  height: 10,
+                                  width: 100,
+                                  color: Colors.white,
+                                ),
                               )))
                     ],
                   ),
@@ -115,15 +50,15 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 16, top: 5),
-                    child: Text(
-                      '${rest.restaurant?[0].description}',
-                      style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black,
-                          fontFamily: 'Manrope'),
-                    ),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[200]!,
+                      child: Container(
+                       height: 10,
+                       width: 100,
+                       color: Colors.white,
+                      ),
+                    )
                   ),
                   const SizedBox(
                     height: 10,
@@ -138,15 +73,16 @@ class DetailScreen extends StatelessWidget {
                     ),
                     title: Transform.translate(
                         offset: const Offset(-20, 0),
-                        child: Text(
-                          'Работаем c ${rest.restaurant?[0].schedule?.opening} до ${rest.restaurant?[0].schedule?.closing} ',
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Manrope'),
-                        )),
-                  ),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[200]!,
+                          child: Container(
+                            width: 50,
+                            height: 10,
+                            color: Colors.white,
+                          ),
+                        ),
+                  ),),
                   ListTile(
                     leading: const Icon(
                       Icons.place_outlined,
@@ -154,23 +90,21 @@ class DetailScreen extends StatelessWidget {
                     ),
                     title: Transform.translate(
                         offset: const Offset(-20, 0),
-                        child: Text(
-                            '${rest.restaurant?[0].coords?.addressName}',
-                            style: const TextStyle(color: Colors.black))),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[200]!,
+                          child: Container(
+                            width: 50,
+                            height: 10,
+                            color: Colors.white,
+                          ),
+                        )),
                   ),
                   const Divider(
                     color: Colors.grey,
                   ),
                 ],
-              );
-            } else if (state is RestaurantDetailError) {
-              return const Center(child: Text('Something get wrong'));
-            } else if (state is RestaurantLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return const SizedBox();
-          },
-        ),
+              )
       ),
     );
   }
