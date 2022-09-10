@@ -121,9 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 .showSnackBar(SnackBar(content: Text(errorMessage)));
           });
         } else if (state is AuthLoginSuccess) {
-          final token = state.auth;
-          print(token.tokens!.accessToken!);
-          BlocProvider.of<ProfileCubit>(context).getProfile(token.tokens!.accessToken!);
+          BlocProvider.of<ProfileCubit>(context).getProfile(Api.token(context));
           Api.refresh(context);
           SchedulerBinding.instance.addPostFrameCallback((_) async {
             Navigator.pushNamedAndRemoveUntil(

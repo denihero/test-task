@@ -39,12 +39,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  bool check(String email,) {
+  bool check(
+    String email,
+  ) {
     bool emailValid = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
 
-    if(!emailValid){
+    if (!emailValid) {
       return false;
     }
     return true;
@@ -75,7 +77,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
-          if (state is AuthInitial || state is AuthRegisterSuccess || state is AuthError) {
+          if (state is AuthInitial ||
+              state is AuthRegisterSuccess ||
+              state is AuthError) {
             return Form(
               key: _formKey,
               child: Column(
@@ -106,17 +110,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       title: 'Создать аккаунт',
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          check(emailController.text) ? context.read<AuthBloc>().add(RegisterEvent(
-                              email: emailController.text,
-                              nickname: loginController.text,
-                              phoneNumber: phoneController.text,
-                              password: passwordController.text)):ScaffoldMessenger.of(context)
-                              .showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "Email contain invalid data"),
-                            ),
-                          );
+                          check(emailController.text)
+                              ? context.read<AuthBloc>().add(RegisterEvent(
+                                  email: emailController.text,
+                                  nickname: loginController.text,
+                                  phoneNumber: phoneController.text,
+                                  password: passwordController.text))
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Email contain invalid data"),
+                                  ),
+                                );
                         }
                       }),
                   const SizedBox(
@@ -136,15 +140,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
           if (state is AuthError) {
             final errorMessage = state.error;
             SchedulerBinding.instance.addPostFrameCallback((_) async {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(errorMessage)));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(errorMessage),
+                duration: const Duration(seconds: 1),
+              ));
             });
-          }else if(state is AuthRegisterSuccess){
+          } else if (state is AuthRegisterSuccess) {
             SchedulerBinding.instance.addPostFrameCallback((_) async {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Вы успешно зарегестрировались')));
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/', (route) => false);
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Вы успешно зарегестрировались')));
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
             });
           }
         },
