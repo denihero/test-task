@@ -13,7 +13,9 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     try{
       var resultFavourite = await fetchFavourite(token);
       emit(FavouriteSuccess(restaurant: resultFavourite));
-    }catch(e){
+    }catch(e,s){
+      print(e);
+      print(s);
       emit(FavouriteError());
     }
   }

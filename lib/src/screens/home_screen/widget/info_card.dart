@@ -5,7 +5,7 @@ class InfoCard extends StatelessWidget {
   const InfoCard({Key? key, required this.restaurant, required this.index})
       : super(key: key);
 
-  final RestaurantInfo restaurant;
+  final Restaurant restaurant;
   final int index;
 
   @override
@@ -28,7 +28,7 @@ class InfoCard extends StatelessWidget {
               ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                   child: Image.network(
-                    '${restaurant.restaurants?[index].images![0]}',
+                    '${restaurant.images![0]}',
                     width: 370,
                     height: 165,
                     fit: BoxFit.cover,
@@ -36,7 +36,7 @@ class InfoCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 16, top: 11),
                 child: Text(
-                  '${restaurant.restaurants?[index].title}',
+                  '${restaurant.title}',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -52,7 +52,7 @@ class InfoCard extends StatelessWidget {
                     child: SizedBox(
                       width: 290,
                       child: Text(
-                        '${restaurant.restaurants?[index].description}',
+                        '${restaurant.description}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
@@ -68,7 +68,7 @@ class InfoCard extends StatelessWidget {
                       offset: const Offset(0, -20),
                       child: IconButton(
                           onPressed: () {},
-                          icon: restaurant.restaurants![index].isFavourite!
+                          icon: restaurant.isFavourite!
                               ? const Icon(
                                   Icons.favorite,
                                   size: 30,

@@ -13,7 +13,9 @@ class RestaurantCubit extends Cubit<RestaurantState> {
     try{
       var result = await fetchRestaurant(token);
       emit(RestaurantSuccess(restaurant: result));
-    }catch(e){
+    }catch(e,s){
+      print(s);
+      print(e);
       emit(RestaurantError());
     }
   }

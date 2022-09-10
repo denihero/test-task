@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:test_task/logic/bloc/auth_bloc.dart';
+import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/model/restaurant.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
@@ -126,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
           print(token.tokens!.accessToken!);
           BlocProvider.of<RestaurantCubit>(context).getRestaurant(token.tokens!.accessToken!);
           BlocProvider.of<ProfileCubit>(context).getProfile(token.tokens!.accessToken!);
+          BlocProvider.of<FavouriteCubit>(context).getFavourite(token.tokens!.accessToken!);
           SchedulerBinding.instance.addPostFrameCallback((_) async {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (route) => false);

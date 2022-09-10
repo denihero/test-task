@@ -43,16 +43,46 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        mapType: MapType.normal,
-        onMapCreated: _onMapCreated,
-        myLocationEnabled: true,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
-        ),
+      body: Stack(
+        children: [
+          GoogleMap(
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            mapType: MapType.normal,
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 11.0,
+            ),
+          ),
+          Positioned(
+            top: 10,
+            left: 10,
+            right: 10,
+            child: SizedBox(
+              height: 40,
+              width: 200,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                   filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        borderSide: BorderSide(
+                            width: 1,
+                            color: Color.fromRGBO(224,230,237, 0.1)
+                        )),
+                    hintText: 'Поик',
+                    contentPadding:
+                    EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+                    prefixIcon: Icon(Icons.search)),
+              ),
+            ),
+          ),
+
+
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,

@@ -47,16 +47,20 @@ class _HomePageState extends State<HomePage> {
             builder: (context, state) {
               if(state is RestaurantSuccess){
                 final rest = state.restaurant;
-                return Expanded(
-                  child: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return  Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: InfoCard(restaurant: rest[index], index: index,),
-                        );
-                      }),
-                );
+                if(rest.isEmpty){
+                  return const Center(child: Text('There is no restaurant'));
+                }else{
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: rest.length,
+                        itemBuilder: (context, index) {
+                          return  Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: InfoCard(restaurant: rest[index], index: index,),
+                          );
+                        }),
+                  );
+                }
               }else if(state is RestaurantError){
                 return const Center(child: Text('Somethig get wrong'),);
               }else if(state is RestaurantLoading){

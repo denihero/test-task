@@ -49,19 +49,20 @@ Future<Auth> loginViaNickname(String nickname, String password) async {
   return Auth.fromJson(data);
 }
 
-Future<List<RestaurantInfo>> fetchRestaurant(String token) async {
-  List<RestaurantInfo> ls = [];
+Future<List<Restaurant>> fetchRestaurant(String token) async {
+
+  List<Restaurant> ls = [];
 
   var response = await http.get(
       Uri.parse('${Api.api}/api/v1/restaurants/all?page=1&perPage=10'),
       headers: {
         'Authorization': 'Bearer $token',
       });
+  final data = jsonDecode(response.body)['restaurants'];
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
     for (var element in data) {
-      ls.add(RestaurantInfo.fromJson(element));
+      ls.add(Restaurant.fromJson(element));
     }
   }
 
@@ -82,17 +83,17 @@ Future<Profile> fetchProfile(String token) async {
 }
 
 
-Future<List<RestaurantInfo>> fetchFavourite(String token) async{
-  List<RestaurantInfo> ls = [];
+Future<List<Restaurant>> fetchFavourite(String token) async{
+  List<Restaurant> ls = [];
   var response = await http.get(Uri.parse('${Api.api}/api/v1/likes/all'), headers: {
   'Authorization': 'Bearer $token',
   });
   
-  final data = jsonDecode(response.body);
+  final data = jsonDecode(response.body)['restaurants'];
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 200) {
     for(var element in data){
-      ls.add(RestaurantInfo.fromJson(element));
+      ls.add(Restaurant.fromJson(element));
     }
     
   }
