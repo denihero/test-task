@@ -34,6 +34,9 @@ class _HomePageState extends State<HomePage> {
               height: 40,
               width: 360,
               child: TextFormField(
+                onChanged: (value){
+
+                },
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(6)),

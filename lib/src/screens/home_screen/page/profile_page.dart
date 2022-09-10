@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:test_task/logic/bloc/auth_bloc.dart';
-import 'package:test_task/logic/model/auth_model.dart';
+import 'package:test_task/logic/auth/auth_bloc.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
 
 class ProfilePage extends StatefulWidget {

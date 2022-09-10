@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_task/logic/bloc/auth_bloc.dart';
+import 'package:test_task/logic/auth/auth_bloc.dart';
 import 'package:test_task/src/screens/auth/widget/primary_button.dart';
 import 'package:test_task/src/screens/auth/widget/email_or_name_tff.dart';
 import 'package:test_task/src/screens/auth/widget/line.dart';

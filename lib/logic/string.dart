@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_task/logic/auth/auth_bloc.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 
-import 'bloc/auth_bloc.dart';
 import 'favourite_cubit/favourite_cubit.dart';
 
 class Api{

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
 import 'package:test_task/logic/model/detail_restaurant.dart';
 import 'package:test_task/logic/model/restaurant.dart';
-import 'package:test_task/logic/restaurant_detail/restaurant_detail_cubit.dart';
+import 'package:test_task/logic/restaurant_detail_cubit/restaurant_detail_cubit.dart';
 import 'package:test_task/logic/string.dart';
 
 import 'bounce_loading.dart';

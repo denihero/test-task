@@ -2,12 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
-import 'package:test_task/logic/model/restaurant.dart';
-import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
-import 'package:test_task/logic/restaurant_detail/restaurant_detail_cubit.dart';
+import 'package:test_task/logic/restaurant_detail_cubit/restaurant_detail_cubit.dart';
 import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
-import 'package:test_task/src/screens/home_screen/widget/detail_page_shimmer.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
