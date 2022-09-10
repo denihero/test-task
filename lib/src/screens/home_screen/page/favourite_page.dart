@@ -21,17 +21,16 @@ class FavouritePage extends StatelessWidget {
         builder: (context, state) {
           if(state is FavouriteSuccess){
             final restaurant = state.restaurant;
-            if(restaurant.isEmpty){
+            if(restaurant.restaurants!.isEmpty){
               return const Center(child: Text('You don\'t have favourite '));
             }else{
               return ListView.builder(
-                itemCount: restaurant.length,
+                itemCount: restaurant.restaurants?.length,
                 itemBuilder: (context, index) {
                   return  Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: InfoCard(
-                      restaurant: restaurant[index],
-                      index: index,
+                      restaurant: restaurant.restaurants![index],
                     ),
                   );
                 },

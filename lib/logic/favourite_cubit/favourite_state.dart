@@ -9,7 +9,7 @@ class FavouriteInitial extends FavouriteState {}
 class FavouriteLoading extends FavouriteState {}
 class FavouriteError extends FavouriteState {}
 class FavouriteSuccess extends FavouriteState {
-  final List<Restaurant> restaurant;
+  final RestaurantInfo restaurant;
 
   FavouriteSuccess({required this.restaurant});
 

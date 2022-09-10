@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:test_task/logic/model/restaurant.dart';
 
+import 'bounce_loading.dart';
+
 class InfoCard extends StatelessWidget {
-  const InfoCard({Key? key, required this.restaurant, required this.index})
+  const InfoCard({Key? key, required this.restaurant,})
       : super(key: key);
 
   final Restaurant restaurant;
-  final int index;
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class InfoCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, '/detail',
-              arguments: {'restaurant': restaurant, 'index': index});
+              arguments: {'restaurant': restaurant,});
         },
         child: Card(
           elevation: 0,
@@ -27,8 +30,10 @@ class InfoCard extends StatelessWidget {
             children: [
               ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
-                  child: Image.network(
-                    '${restaurant.images![0]}',
+                  child: CachedNetworkImage(
+                    imageUrl: '${restaurant.images}',
+                    placeholder: (context, url) =>  SpinKitDoubleBounce() ,
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                     width: 370,
                     height: 165,
                     fit: BoxFit.cover,

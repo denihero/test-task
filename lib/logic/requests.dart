@@ -49,26 +49,37 @@ Future<Auth> loginViaNickname(String nickname, String password) async {
   return Auth.fromJson(data);
 }
 
-Future<List<Restaurant>> fetchRestaurant(String token) async {
-
-  List<Restaurant> ls = [];
+Future<RestaurantInfo> fetchRestaurant(String token) async {
 
   var response = await http.get(
       Uri.parse('${Api.api}/api/v1/restaurants/all?page=1&perPage=10'),
       headers: {
         'Authorization': 'Bearer $token',
       });
-  final data = jsonDecode(response.body)['restaurants'];
+  final data = jsonDecode(response.body);
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 200) {
-    for (var element in data) {
-      ls.add(Restaurant.fromJson(element));
-    }
+    return RestaurantInfo.fromJson(data);
   }
 
-  return ls;
+  return RestaurantInfo.fromJson(data);
 }
 
+Future<RestaurantInfo> fetchFavourite(String token) async{
+  List<Restaurant> ls = [];
+  var response = await http.get(Uri.parse('${Api.api}/api/v1/likes/all'), headers: {
+    'Authorization': 'Bearer $token',
+  });
+
+  final data = jsonDecode(response.body);
+  if (response.statusCode >= 400) throw UnimplementedError();
+  if (response.statusCode == 200) {
+    return RestaurantInfo.fromJson(data);
+  }
+
+  return RestaurantInfo.fromJson(data);
+
+}
 Future<Profile> fetchProfile(String token) async {
   var response = await http
       .get(Uri.parse('${Api.api}/api/v1/auth/login/profile'), headers: {
@@ -82,21 +93,3 @@ Future<Profile> fetchProfile(String token) async {
   return Profile.fromJson(data);
 }
 
-
-Future<List<Restaurant>> fetchFavourite(String token) async{
-  List<Restaurant> ls = [];
-  var response = await http.get(Uri.parse('${Api.api}/api/v1/likes/all'), headers: {
-  'Authorization': 'Bearer $token',
-  });
-  
-  final data = jsonDecode(response.body)['restaurants'];
-  if (response.statusCode >= 400) throw UnimplementedError();
-  if (response.statusCode == 200) {
-    for(var element in data){
-      ls.add(Restaurant.fromJson(element));
-    }
-    
-  }
-  return ls;
-  
-}

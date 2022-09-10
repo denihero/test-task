@@ -10,7 +10,7 @@ class RestaurantError extends RestaurantState {}
 class RestaurantLoading extends RestaurantState {}
 
 class RestaurantSuccess extends RestaurantState {
-  final List<Restaurant> restaurant;
+  final RestaurantInfo restaurant;
 
   RestaurantSuccess({required this.restaurant});
 
