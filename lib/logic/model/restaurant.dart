@@ -56,13 +56,13 @@ class Restaurant {
   User? user;
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-    isFavourite: json["is_favourite"] == null ? null : json["is_favourite"],
-    id: json["id"] == null ? null : json["id"],
-    title: json["title"] == null ? null : json["title"],
-    description: json["description"] == null ? null : json["description"],
-    scheduleId: json["schedule_id"] == null ? null : json["schedule_id"],
-    coordsId: json["coords_id"] == null ? null : json["coords_id"],
-    userId: json["user_id"] == null ? null : json["user_id"],
+    isFavourite: json["is_favourite"],
+    id: json["id"],
+    title: json["title"],
+    description: json["description"],
+    scheduleId: json["schedule_id"],
+    coordsId: json["coords_id"],
+    userId: json["user_id"],
     schedule: json["schedule"] == null ? null : Schedule.fromJson(json["schedule"]),
     coords: json["coords"] == null ? null : Coords.fromJson(json["coords"]),
     images: json["images"] == null ? null : List<Images>.from(json["images"].map((x) => Images.fromJson(x))),
@@ -70,17 +70,17 @@ class Restaurant {
   );
 
   Map<String, dynamic> toJson() => {
-    "is_favourite": isFavourite == null ? null : isFavourite,
-    "id": id == null ? null : id,
-    "title": title == null ? null : title,
-    "description": description == null ? null : description,
-    "schedule_id": scheduleId == null ? null : scheduleId,
-    "coords_id": coordsId == null ? null : coordsId,
-    "user_id": userId == null ? null : userId,
-    "schedule": schedule == null ? null : schedule?.toJson(),
-    "coords": coords == null ? null : coords?.toJson(),
-    "images": images == null ? null : List<dynamic>.from(images!.map((x) => x.toJson())),
-    "user": user == null ? null : user?.toJson(),
+    "is_favourite": isFavourite ,
+    "id": id ,
+    "title": title,
+    "description": description,
+    "schedule_id": scheduleId ,
+    "coords_id": coordsId,
+    "user_id": userId ,
+    "schedule": schedule?.toJson(),
+    "coords": coords?.toJson(),
+    "images": List<dynamic>.from(images!.map((x) => x.toJson())),
+    "user": user?.toJson(),
   };
 }
 
@@ -98,17 +98,17 @@ class Coords {
   String? addressName;
 
   factory Coords.fromJson(Map<String, dynamic> json) => Coords(
-    id: json["id"] == null ? null : json["id"],
-    longitude: json["longitude"] == null ? null : json["longitude"].toDouble(),
-    latitude: json["latitude"] == null ? null : json["latitude"].toDouble(),
-    addressName: json["address_name"] == null ? null : json["address_name"],
+    id: json["id"],
+    longitude: json["longitude"].toDouble(),
+    latitude: json["latitude"].toDouble(),
+    addressName: json["address_name"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "longitude": longitude == null ? null : longitude,
-    "latitude": latitude == null ? null : latitude,
-    "address_name": addressName == null ? null : addressName,
+    "id": id,
+    "longitude":longitude,
+    "latitude": latitude,
+    "address_name":addressName,
   };
 }
 
@@ -124,15 +124,15 @@ class Images {
   int? restaurantId;
 
   factory Images.fromJson(Map<String, dynamic> json) => Images(
-    id: json["id"] == null ? null : json["id"],
-    url: json["url"] == null ? null : json["url"],
-    restaurantId: json["restaurant_id"] == null ? null : json["restaurant_id"],
+    id: json["id"],
+    url: json["url"],
+    restaurantId: json["restaurant_id"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "url": url == null ? null : url,
-    "restaurant_id": restaurantId == null ? null : restaurantId,
+    "id": id,
+    "url": url,
+    "restaurant_id": restaurantId,
   };
 }
 
@@ -148,15 +148,15 @@ class Schedule {
   String? closing;
 
   factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
-    id: json["id"] == null ? null : json["id"],
-    opening: json["opening"] == null ? null : json["opening"],
-    closing: json["closing"] == null ? null : json["closing"],
+    id: json["id"],
+    opening: json["opening"],
+    closing: json["closing"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "opening": opening == null ? null : opening,
-    "closing": closing == null ? null : closing,
+    "id": id,
+    "opening": opening,
+    "closing": closing,
   };
 }
 

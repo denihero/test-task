@@ -26,13 +26,13 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl:
-                            'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
+                        'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
                         placeholder: (context, url) =>
-                            const SpinKitDoubleBounce(
+                        const SpinKitDoubleBounce(
                           color: Colors.blue,
                         ),
                         errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                        const Icon(Icons.error),
                         width: 370,
                         height: 165,
                         fit: BoxFit.cover,
@@ -66,26 +66,26 @@ class DetailScreen extends StatelessWidget {
                                 if (rest.restaurant![0].isFavourite == true) {
                                   BlocProvider.of<AddToFavCubit>(context)
                                       .deleteFavourite(
-                                          Api.token(context), rest.restaurant![0].id!);
+                                      Api.token(context), rest.restaurant![0].id!);
                                 } else {
                                   BlocProvider.of<AddToFavCubit>(context)
                                       .saveRestaurant(
-                                          Api.token(context), rest.restaurant![0].id!);
+                                      Api.token(context), rest.restaurant![0].id!);
                                 }
                                 BlocProvider.of<RestaurantDetailCubit>(context)
                                     .getRestaurantDetail(Api.token(context),
-                                        rest.restaurant![0].id!);
+                                    rest.restaurant![0].id!);
                                 Api.refresh(context);
                               },
                               icon: rest.restaurant![0].isFavourite!
                                   ? const Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    )
+                                Icons.favorite,
+                                color: Colors.red,
+                              )
                                   : const Icon(
-                                      Icons.favorite_outline,
-                                      color: Colors.white,
-                                    ))),
+                                Icons.favorite_outline,
+                                color: Colors.white,
+                              ))),
                       Positioned.fill(
                           top: 20,
                           child: Align(

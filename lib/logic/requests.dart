@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:test_task/logic/model/auth_model.dart';
+import 'package:test_task/logic/model/detail_restaurant.dart';
 import 'package:test_task/logic/model/restaurant.dart';
 import 'package:test_task/logic/string.dart';
+import 'package:test_task/src/screens/home_screen/detail_screen.dart';
 
 Future<void> register(
     String email, String nickname, String phone, String password) async {
@@ -65,8 +67,23 @@ Future<RestaurantInfo> fetchRestaurant(String token) async {
   return RestaurantInfo.fromJson(data);
 }
 
+Future<DetailRestaurant> fetchRestaurantDetail(String token,int id) async {
+  var response = await http.get(
+      Uri.parse('${Api.api}/api/v1/restaurants/details/$id'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      });
+  final data = jsonDecode(response.body);
+  if (response.statusCode >= 400) throw UnimplementedError();
+  if (response.statusCode == 200) {
+    print(DetailRestaurant.fromJson(data));
+    return DetailRestaurant.fromJson(data);
+  }
+
+  return DetailRestaurant.fromJson(data);
+}
+
 Future<RestaurantInfo> fetchFavourite(String token) async{
-  List<Restaurant> ls = [];
   var response = await http.get(Uri.parse('${Api.api}/api/v1/likes/all'), headers: {
     'Authorization': 'Bearer $token',
   });

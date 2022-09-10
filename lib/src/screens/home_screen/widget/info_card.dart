@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
+import 'package:test_task/logic/model/detail_restaurant.dart';
 import 'package:test_task/logic/model/restaurant.dart';
+import 'package:test_task/logic/restaurant_detail/restaurant_detail_cubit.dart';
 import 'package:test_task/logic/string.dart';
 
 import 'bounce_loading.dart';
@@ -20,6 +22,7 @@ class InfoCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: GestureDetector(
         onTap: () {
+          BlocProvider.of<RestaurantDetailCubit>(context).getRestaurantDetail(Api.token(context), restaurant.id!);
           Navigator.pushNamed(context, '/detail',
               arguments: {'restaurant': restaurant,});
         },

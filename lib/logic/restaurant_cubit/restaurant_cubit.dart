@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:test_task/logic/model/detail_restaurant.dart';
 import 'package:test_task/logic/model/restaurant.dart';
 import 'package:test_task/logic/requests.dart';
 
@@ -19,4 +20,6 @@ class RestaurantCubit extends Cubit<RestaurantState> {
       emit(RestaurantError());
     }
   }
+
+
 }

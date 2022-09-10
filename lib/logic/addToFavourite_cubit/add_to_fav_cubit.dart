@@ -7,7 +7,7 @@ part 'add_to_fav_state.dart';
 class AddToFavCubit extends Cubit<AddToFavState> {
   AddToFavCubit() : super(AddToFavInitial());
 
-  void saveRestaurant(String token,int id) async{
+  Future<void> saveRestaurant(String token,int id) async{
     emit(AddToFavLoading());
     try{
       var result = await addToFavourite(token, id);
@@ -19,7 +19,7 @@ class AddToFavCubit extends Cubit<AddToFavState> {
     }
   }
 
-  void deleteFavourite(String token,int id) async{
+  Future<void> deleteFavourite(String token,int id) async{
     emit(AddToFavLoading());
     try{
       var result = await deleteFromFavourite(token, id);

@@ -65,7 +65,7 @@ class _MapPageState extends State<MapPage> {
             for(var i = 0;i < restMark!.length;i++){
               markers.add(Marker( //add first marker
                 markerId: MarkerId('${restMark[i].title}'),
-                position: LatLng(restMark[i].coords!.latitude!, restMark[i].coords!.latitude!), //position of marker
+                position: LatLng(restMark[i].coords!.latitude!, restMark[i].coords!.longitude!), //position of marker
                 infoWindow: InfoWindow( //popup info
                   title: '${restMark[i].coords?.addressName}',
                 ),
