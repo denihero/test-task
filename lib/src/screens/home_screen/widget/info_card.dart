@@ -10,8 +10,10 @@ import 'package:test_task/logic/string.dart';
 import 'bounce_loading.dart';
 
 class InfoCard extends StatelessWidget {
-  const InfoCard({Key? key, required this.restaurant,})
-      : super(key: key);
+  const InfoCard({
+    Key? key,
+    required this.restaurant,
+  }) : super(key: key);
 
   final Restaurant restaurant;
 
@@ -22,9 +24,9 @@ class InfoCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: GestureDetector(
         onTap: () {
-          BlocProvider.of<RestaurantDetailCubit>(context).getRestaurantDetail(Api.token(context), restaurant.id!);
-          Navigator.pushNamed(context, '/detail',
-              arguments: {'restaurant': restaurant,});
+          BlocProvider.of<RestaurantDetailCubit>(context)
+              .getRestaurantDetail(Api.token(context), restaurant.id!);
+          Navigator.pushNamed(context, '/detail');
         },
         child: Card(
           elevation: 0,
@@ -36,9 +38,17 @@ class InfoCard extends StatelessWidget {
               ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                   child: CachedNetworkImage(
-                    imageUrl: 'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
-                    placeholder: (context, url) =>  const SpinKitDoubleBounce(color: Colors.blue,) ,
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    imageUrl:
+                        '${restaurant.images!.isEmpty
+                            ? 'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8='
+                            : restaurant.images?[0].url}',
+                    placeholder: (context, url) => const SpinKitDoubleBounce(
+                      color: Colors.blue,
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const SpinKitDoubleBounce(
+                      color: Colors.blue,
+                    ),
                     width: 370,
                     height: 165,
                     fit: BoxFit.cover,
@@ -78,10 +88,14 @@ class InfoCard extends StatelessWidget {
                       offset: const Offset(0, -20),
                       child: IconButton(
                           onPressed: () {
-                            if(restaurant.isFavourite == true){
-                              BlocProvider.of<AddToFavCubit>(context).deleteFavourite(Api.token(context), restaurant.id!);
-                            }else{
-                              BlocProvider.of<AddToFavCubit>(context).saveRestaurant(Api.token(context), restaurant.id!);
+                            if (restaurant.isFavourite == true) {
+                              BlocProvider.of<AddToFavCubit>(context)
+                                  .deleteFavourite(
+                                      Api.token(context), restaurant.id!);
+                            } else {
+                              BlocProvider.of<AddToFavCubit>(context)
+                                  .saveRestaurant(
+                                      Api.token(context), restaurant.id!);
                             }
                             Api.refresh(context);
                           },

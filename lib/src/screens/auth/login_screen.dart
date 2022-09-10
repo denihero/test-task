@@ -8,6 +8,7 @@ import 'package:test_task/src/screens/auth/widget/primary_button.dart';
 import 'package:test_task/src/screens/auth/widget/email_or_name_tff.dart';
 import 'package:test_task/src/screens/auth/widget/line.dart';
 import 'package:test_task/src/screens/auth/widget/passwod_tff.dart';
+import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -110,9 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         } else if (state is AuthLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: SpinKitDoubleBounce(color: Colors.blue,));
         }
-        return const SizedBox();
+        return const Center(child: SpinKitDoubleBounce(color: Colors.blue,));
       }, listener: (context, state) {
         if (state is AuthError) {
           final errorMessage = state.error;

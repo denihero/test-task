@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterEvent>((event, emit) async {
       emit(AuthLoading());
       try{
-        var registerResult = await register(event.email, event.nickname, event.phoneNumber, event.password);
+        await register(event.email, event.nickname, event.phoneNumber, event.password);
         emit(AuthRegisterSuccess());
       }catch(e,s) {
         print(e);
@@ -28,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try{
         var loginResult = await loginViaEmail(event.email, event.password);
         emit(AuthLoginSuccess(auth: loginResult));
-      }catch(e,s){
+      }catch(e){
         print(e);
         emit(AuthError(error:e.toString()));
       }
@@ -45,11 +45,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<AuthLogout>((event, emit) {
+    on<AuthLogoutEvent>((event, emit) {
       emit(AuthLoading());
       emit(AuthInitial(),);
     });
   }
-
 
 }

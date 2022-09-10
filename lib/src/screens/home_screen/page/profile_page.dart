@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ListTile(
                     tileColor: Colors.white,
                     onTap: () {
-                      BlocProvider.of<AuthBloc>(context).add(AuthLogout());
+                      BlocProvider.of<AuthBloc>(context).add(AuthLogoutEvent());
                       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                       ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(content: Text('Вы успешно вышли')));

@@ -24,15 +24,18 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl:
-                            'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
+                            '${rest.restaurant![0].images!.isEmpty
+                                ? 'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8='
+                                : rest.restaurant?[0].images?[0].url
+                            }',
                         placeholder: (context, url) =>
                             const SpinKitDoubleBounce(
                           color: Colors.blue,
                         ),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
-                        width: 370,
-                        height: 165,
+                        width: 395,
+                        height: 240,
                         fit: BoxFit.cover,
                       ),
                       Container(
@@ -63,12 +66,12 @@ class DetailScreen extends StatelessWidget {
                               onPressed: () async {
                                 if (rest.restaurant![0].isFavourite == true) {
                                   BlocProvider.of<AddToFavCubit>(context)
-                                      .deleteFavourite(
-                                          Api.token(context), rest.restaurant![0].id!);
+                                      .deleteFavourite(Api.token(context),
+                                          rest.restaurant![0].id!);
                                 } else {
                                   BlocProvider.of<AddToFavCubit>(context)
-                                      .saveRestaurant(
-                                          Api.token(context), rest.restaurant![0].id!);
+                                      .saveRestaurant(Api.token(context),
+                                          rest.restaurant![0].id!);
                                 }
                                 BlocProvider.of<RestaurantDetailCubit>(context)
                                     .getRestaurantDetail(Api.token(context),
@@ -164,7 +167,9 @@ class DetailScreen extends StatelessWidget {
             } else if (state is RestaurantDetailError) {
               return const Center(child: Text('Something get wrong'));
             } else if (state is RestaurantDetailLoading) {
-              return const SpinKitDoubleBounce(color: Colors.blue,);
+              return const SpinKitDoubleBounce(
+                color: Colors.blue,
+              );
             }
             return const SizedBox();
           },
