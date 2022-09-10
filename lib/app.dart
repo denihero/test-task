@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_task/logic/bloc/auth_bloc.dart';
+import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
 import 'package:test_task/src/screens/auth/login_screen.dart';
 import 'package:test_task/src/screens/auth/sign_up_screen.dart';
@@ -20,7 +21,8 @@ class App extends StatelessWidget {
           create: (context) => AuthBloc(),
         ),
         BlocProvider<RestaurantCubit>(create: (context) => RestaurantCubit()),
-        BlocProvider<ProfileCubit>(create: (context) => ProfileCubit())
+        BlocProvider<ProfileCubit>(create: (context) => ProfileCubit()),
+        BlocProvider<FavouriteCubit>(create: (context) => FavouriteCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

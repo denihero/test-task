@@ -8,7 +8,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rest = ModalRoute.of(context)?.settings.arguments as Map;
-    final RestaurantCard restaurant = rest['restaurant'];
+    final RestaurantInfo restaurant = rest['restaurant'];
     final int index = rest['index'];
     return SafeArea(
       child: Scaffold(

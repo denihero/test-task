@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-RestaurantCard welcomeFromJson(String str) => RestaurantCard.fromJson(json.decode(str));
+RestaurantInfo welcomeFromJson(String str) => RestaurantInfo.fromJson(json.decode(str));
 
-String welcomeToJson(RestaurantCard data) => json.encode(data.toJson());
+String welcomeToJson(RestaurantInfo data) => json.encode(data.toJson());
 
-class RestaurantCard {
-  RestaurantCard({
+class RestaurantInfo {
+  RestaurantInfo({
     this.count,
     this.restaurants,
   });
@@ -17,7 +17,7 @@ class RestaurantCard {
   int? count;
   List<Restaurant>? restaurants;
 
-  factory RestaurantCard.fromJson(Map<String, dynamic> json) => RestaurantCard(
+  factory RestaurantInfo.fromJson(Map<String, dynamic> json) => RestaurantInfo(
     count: json["count"],
     restaurants: json["restaurants"] == null ? null : List<Restaurant>.from(json["restaurants"].map((x) => Restaurant.fromJson(x))),
   );

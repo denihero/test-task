@@ -5,7 +5,7 @@ class InfoCard extends StatelessWidget {
   const InfoCard({Key? key, required this.restaurant, required this.index})
       : super(key: key);
 
-  final RestaurantCard restaurant;
+  final RestaurantInfo restaurant;
   final int index;
 
   @override
@@ -68,11 +68,16 @@ class InfoCard extends StatelessWidget {
                       offset: const Offset(0, -20),
                       child: IconButton(
                           onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite,
-                            size: 30,
-                            color: Colors.red,
-                          )))
+                          icon: restaurant.restaurants![index].isFavourite!
+                              ? const Icon(
+                                  Icons.favorite,
+                                  size: 30,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.favorite_outline,
+                                  size: 30,
+                                )))
                 ],
               )
             ],

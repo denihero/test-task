@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
 import 'package:test_task/src/screens/home_screen/widget/info_card.dart';
 
@@ -16,9 +17,9 @@ class FavouritePage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: BlocBuilder<RestaurantCubit, RestaurantState>(
+      body: BlocBuilder<FavouriteCubit, FavouriteState>(
         builder: (context, state) {
-          if(state is RestaurantSuccess){
+          if(state is FavouriteSuccess){
             final restaurant = state.restaurant;
             return ListView.builder(
               itemCount: restaurant.length,
