@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -16,29 +18,49 @@ class _MapPageState extends State<MapPage> {
 
   final Location _location = Location();
 
+  late LocationData currentLocation;
+  late PermissionStatus permission;
+
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-    _location.onLocationChanged.listen((LocationData? event) {
-      mapController.animateCamera(
-        CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(event?.latitude ?? 0,event?.longitude ?? 0 ),zoom: 15))
-      );
+    setState((){
+      mapController = controller;
     });
   }
 
    Future<LatLng?> getUserLocation() async {
-     LocationData? currentLocation;
-     final location = Location();
      try {
-       currentLocation = await location.getLocation();
+       currentLocation = await _location.getLocation();
        final lat = currentLocation.latitude;
        final lng = currentLocation.longitude;
        final center = LatLng(lat!, lng!);
+       mapController.animateCamera(
+           CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(currentLocation.latitude ?? 0,currentLocation.longitude ?? 0 ),zoom: 15))
+       );
        return center;
      } on Exception {
-       currentLocation = null;
        return null;
      }
    }
+
+  final Set<Marker> markers = {
+    const Marker( //add first marker
+      markerId: MarkerId('Аль фараби'),
+      position: LatLng(43.23672076148338, 76.88892877135433), //position of marker
+      infoWindow: InfoWindow( //popup info
+        title: 'My Custom Title ',
+        snippet: 'My Custom Subtitle',
+      ),
+      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    )
+  };
+
+
+  @override
+  void dispose() {
+    mapController.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +68,12 @@ class _MapPageState extends State<MapPage> {
       body: Stack(
         children: [
           GoogleMap(
+            markers: markers,
+            zoomGesturesEnabled: true,
+            tiltGesturesEnabled: false,
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
-            mapType: MapType.normal,
+            mapType: MapType.terrain,
             onMapCreated: _onMapCreated,
             myLocationEnabled: true,
             initialCameraPosition: CameraPosition(
@@ -86,7 +111,9 @@ class _MapPageState extends State<MapPage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
-        onPressed: getUserLocation,
+        onPressed: () async {
+          await getUserLocation();
+        },
         child: const Icon(Icons.location_on,color: Colors.black,),
       ),
     );
