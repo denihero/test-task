@@ -7,6 +7,7 @@ import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/model/restaurant.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
 import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
+import 'package:test_task/logic/string.dart';
 import 'package:test_task/src/screens/auth/widget/primary_button.dart';
 import 'package:test_task/src/screens/auth/widget/email_or_name_tff.dart';
 import 'package:test_task/src/screens/auth/widget/line.dart';
@@ -125,9 +126,8 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is AuthLoginSuccess) {
           final token = state.auth;
           print(token.tokens!.accessToken!);
-          BlocProvider.of<RestaurantCubit>(context).getRestaurant(token.tokens!.accessToken!);
           BlocProvider.of<ProfileCubit>(context).getProfile(token.tokens!.accessToken!);
-          BlocProvider.of<FavouriteCubit>(context).getFavourite(token.tokens!.accessToken!);
+          Api.refresh(context);
           SchedulerBinding.instance.addPostFrameCallback((_) async {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (route) => false);

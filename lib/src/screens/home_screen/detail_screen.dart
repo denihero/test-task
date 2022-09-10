@@ -1,5 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
 import 'package:test_task/logic/model/restaurant.dart';
+import 'package:test_task/logic/restaurant_cubit/restaurant_cubit.dart';
+import 'package:test_task/logic/string.dart';
+import 'package:test_task/src/screens/home_screen/widget/bounce_loading.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
@@ -15,10 +21,16 @@ class DetailScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.network(
-                  '${restaurant.images}',
-                  width: 400,
-                  height: 250,
+                CachedNetworkImage(
+                  imageUrl:
+                      'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
+                  placeholder: (context, url) => const SpinKitDoubleBounce(
+                    color: Colors.blue,
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  width: 370,
+                  height: 165,
+                  fit: BoxFit.cover,
                 ),
                 Container(
                   width: 400,
@@ -44,12 +56,45 @@ class DetailScreen extends StatelessWidget {
                 Positioned(
                     right: 10,
                     top: 5,
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                        ))),
+                    child: BlocBuilder<RestaurantCubit, RestaurantState>(
+                      builder: (context, state) {
+                        if (state is RestaurantSuccess) {
+                          final fav =
+                              state.restaurant.restaurants?[0].isFavourite;
+                          return IconButton(
+                              onPressed: () {
+                                if (fav == true) {
+                                  BlocProvider.of<AddToFavCubit>(context)
+                                      .deleteFavourite(
+                                          Api.token(context), restaurant.id!);
+                                } else {
+                                  BlocProvider.of<AddToFavCubit>(context)
+                                      .saveRestaurant(
+                                          Api.token(context), restaurant.id!);
+                                }
+                                Api.refresh(context);
+                              },
+                              icon: fav!
+                                  ? const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : const Icon(
+                                      Icons.favorite_outline,
+                                      color: Colors.white,
+                                    ));
+                        } else if (state is RestaurantLoading) {
+                          return IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.favorite_outline,
+                              color: Colors.white,
+                            ),
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    )),
                 Positioned.fill(
                     top: 20,
                     child: Align(

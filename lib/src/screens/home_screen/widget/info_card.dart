@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
 import 'package:test_task/logic/model/restaurant.dart';
+import 'package:test_task/logic/string.dart';
 
 import 'bounce_loading.dart';
 
@@ -9,7 +12,6 @@ class InfoCard extends StatelessWidget {
       : super(key: key);
 
   final Restaurant restaurant;
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,8 @@ class InfoCard extends StatelessWidget {
               ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                   child: CachedNetworkImage(
-                    imageUrl: '${restaurant.images}',
-                    placeholder: (context, url) =>  SpinKitDoubleBounce() ,
+                    imageUrl: 'https://static.timesofisrael.com/www/uploads/2019/04/-%D7%A1%D7%94%D7%A8-%D7%A4%D7%A8%D7%A1%D7%95%D7%9D-%D7%95%D7%94%D7%A4%D7%A7%D7%95%D7%AA-e1554720242329.jpg',
+                    placeholder: (context, url) =>  const SpinKitDoubleBounce(color: Colors.blue,) ,
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                     width: 370,
                     height: 165,
@@ -72,7 +74,14 @@ class InfoCard extends StatelessWidget {
                   Transform.translate(
                       offset: const Offset(0, -20),
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if(restaurant.isFavourite == true){
+                              BlocProvider.of<AddToFavCubit>(context).deleteFavourite(Api.token(context), restaurant.id!);
+                            }else{
+                              BlocProvider.of<AddToFavCubit>(context).saveRestaurant(Api.token(context), restaurant.id!);
+                            }
+                            Api.refresh(context);
+                          },
                           icon: restaurant.isFavourite!
                               ? const Icon(
                                   Icons.favorite,

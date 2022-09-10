@@ -93,3 +93,28 @@ Future<Profile> fetchProfile(String token) async {
   return Profile.fromJson(data);
 }
 
+Future<void> addToFavourite(String token,int id) async{
+  var response = await http.post(Uri.parse('${Api.api}/api/v1/likes/new'),headers: {
+    'Authorization': 'Bearer $token',
+  },body: {
+   'restaurant_id':"$id"
+  }
+
+  );
+  if (response.statusCode >= 400) throw jsonDecode(response.body)['message'];
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  }
+}
+
+
+Future<void> deleteFromFavourite(String token,int id) async{
+  var response = await http.delete(Uri.parse('${Api.api}/api/v1/likes/$id'),headers: {
+    'Authorization': 'Bearer $token',
+  });
+  if (response.statusCode >= 400) throw jsonDecode(response.body)['message'];
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  }
+}
+

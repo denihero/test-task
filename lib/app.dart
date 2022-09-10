@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_task/logic/addToFavourite_cubit/add_to_fav_cubit.dart';
 import 'package:test_task/logic/bloc/auth_bloc.dart';
 import 'package:test_task/logic/favourite_cubit/favourite_cubit.dart';
 import 'package:test_task/logic/profile_cubit/profile_cubit.dart';
@@ -22,7 +23,8 @@ class App extends StatelessWidget {
         ),
         BlocProvider<RestaurantCubit>(create: (context) => RestaurantCubit()),
         BlocProvider<ProfileCubit>(create: (context) => ProfileCubit()),
-        BlocProvider<FavouriteCubit>(create: (context) => FavouriteCubit())
+        BlocProvider<FavouriteCubit>(create: (context) => FavouriteCubit()),
+        BlocProvider<AddToFavCubit>(create: (context) => AddToFavCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
