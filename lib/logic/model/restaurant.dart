@@ -1,14 +1,8 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
+import 'package:json_annotation/json_annotation.dart';
 
-import 'dart:convert';
+part 'restaurant.g.dart';
 
-RestaurantInfo welcomeFromJson(String str) =>
-    RestaurantInfo.fromJson(json.decode(str));
-
-String welcomeToJson(RestaurantInfo data) => json.encode(data.toJson());
-
+@JsonSerializable()
 class RestaurantInfo {
   RestaurantInfo({
     this.count,
@@ -18,20 +12,9 @@ class RestaurantInfo {
   int? count;
   List<Restaurant>? restaurants;
 
-  factory RestaurantInfo.fromJson(Map<String, dynamic> json) => RestaurantInfo(
-        count: json["count"],
-        restaurants: json["restaurants"] == null
-            ? null
-            : List<Restaurant>.from(
-                json["restaurants"].map((x) => Restaurant.fromJson(x))),
-      );
+  factory RestaurantInfo.fromJson(Map<String, dynamic> json) => _$RestaurantInfoFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "count": count,
-        "restaurants": restaurants == null
-            ? null
-            : List<dynamic>.from(restaurants!.map((x) => x.toJson())),
-      };
+  Map<String, dynamic> toJson() => _$RestaurantInfoToJson(this);
 }
 
 class Restaurant {

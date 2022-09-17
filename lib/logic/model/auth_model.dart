@@ -1,9 +1,9 @@
-import 'dart:convert';
 
-Auth welcomeFromJson(String str) => Auth.fromJson(json.decode(str));
+import 'package:json_annotation/json_annotation.dart';
 
-String welcomeToJson(Auth data) => json.encode(data.toJson());
+part 'auth_model.g.dart';
 
+@JsonSerializable()
 class Auth {
   Auth({
     this.user,
@@ -13,15 +13,9 @@ class Auth {
   User? user;
   Tokens? tokens;
 
-  factory Auth.fromJson(Map<String, dynamic> json) => Auth(
-        user: User.fromJson(json["user"]),
-        tokens: Tokens.fromJson(json["tokens"]),
-      );
+  factory Auth.fromJson(Map<String, dynamic> json) => _$AuthFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "user": user?.toJson(),
-        "tokens": tokens?.toJson(),
-      };
+  Map<String, dynamic> toJson() => _$AuthToJson(this);
 }
 
 class Tokens {
@@ -67,7 +61,7 @@ class User {
         "nickname": nickname,
       };
 }
-
+@JsonSerializable()
 class Profile {
   Profile({
     this.id,
@@ -79,15 +73,7 @@ class Profile {
   String? email;
   String? nickname;
 
-  factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-        id: json["id"],
-        email: json["email"],
-        nickname: json["nickname"],
-      );
+  factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "email": email,
-        "nickname": nickname,
-      };
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }
