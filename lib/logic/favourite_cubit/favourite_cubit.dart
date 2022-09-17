@@ -7,11 +7,10 @@ part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit() : super(FavouriteInitial());
-
-  void getFavourite(String token) async {
+    void getFavourite(String token) async {
     emit(FavouriteLoading());
     try {
-      var resultFavourite = await fetchFavourite(token);
+      var resultFavourite = await DioClient().fetchFavourite(token);
       emit(FavouriteSuccess(restaurant: resultFavourite));
     } catch (e, s) {
       print(e);

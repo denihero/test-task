@@ -8,10 +8,12 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
+
+    var dioClient = DioClient();
     on<RegisterEvent>((event, emit) async {
       emit(AuthLoading());
       try {
-        await register(
+        await dioClient.register(
             event.email, event.nickname, event.phoneNumber, event.password);
         emit(AuthRegisterSuccess());
       } catch (e, s) {
@@ -24,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEmailEvent>((event, emit) async {
       emit(AuthLoading());
       try {
-        var loginResult = await loginViaEmail(event.email, event.password);
+        var loginResult = await dioClient.loginViaEmail(event.email, event.password);
         emit(AuthLoginSuccess(auth: loginResult));
       } catch (e) {
         print(e);
@@ -36,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       try {
         var loginResult =
-            await loginViaNickname(event.nickname, event.password);
+            await dioClient.loginViaNickname(event.nickname, event.password);
         emit(AuthLoginSuccess(auth: loginResult));
       } catch (e, s) {
         print(e);

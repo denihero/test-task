@@ -11,7 +11,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   void getProfile(String token) async {
     emit(ProfileLoading());
     try {
-      var result = await fetchProfile(token);
+      var result = await DioClient().fetchProfile(token);
       emit(ProfileSuccess(profile: result));
     } catch (e, s) {
       print(e);

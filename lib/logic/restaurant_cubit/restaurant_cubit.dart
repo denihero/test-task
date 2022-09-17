@@ -9,10 +9,12 @@ part 'restaurant_state.dart';
 class RestaurantCubit extends Cubit<RestaurantState> {
   RestaurantCubit() : super(RestaurantInitial());
 
+  var dioClient = DioClient();
+
   void getRestaurant(String token) async {
     emit(RestaurantLoading());
     try {
-      var result = await fetchRestaurant(token);
+      var result = await dioClient.fetchRestaurant(token);
       emit(RestaurantSuccess(restaurant: result));
     } catch (e, s) {
       print(s);
@@ -24,7 +26,7 @@ class RestaurantCubit extends Cubit<RestaurantState> {
   void searchRestaurant(String token, String query) async {
     emit(RestaurantLoading());
     try {
-      var result = await fetchRestaurant(token);
+      var result = await dioClient.fetchRestaurant(token);
       List<Restaurant>? searchResult = result.restaurants
           ?.where((element) =>
               element.title!.toLowerCase().contains(query.toLowerCase()))

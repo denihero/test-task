@@ -7,10 +7,12 @@ part 'add_to_fav_state.dart';
 class AddToFavCubit extends Cubit<AddToFavState> {
   AddToFavCubit() : super(AddToFavInitial());
 
+  var dioClient = DioClient();
+
   Future<void> saveRestaurant(String token, int id) async {
     emit(AddToFavLoading());
     try {
-     await addToFavourite(token, id);
+     await dioClient.addToFavourite(token, id);
       emit(AddToFavSuccess());
     } catch (e, s) {
       print(e);
@@ -22,7 +24,7 @@ class AddToFavCubit extends Cubit<AddToFavState> {
   Future<void> deleteFavourite(String token, int id) async {
     emit(AddToFavLoading());
     try {
-      await deleteFromFavourite(token, id);
+      await dioClient.deleteFromFavourite(token, id);
       emit(AddToFavSuccess());
     } catch (e, s) {
       print(e);

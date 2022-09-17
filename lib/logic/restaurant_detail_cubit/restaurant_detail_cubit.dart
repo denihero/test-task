@@ -11,7 +11,7 @@ class RestaurantDetailCubit extends Cubit<RestaurantDetailState> {
   Future<void> getRestaurantDetail(String token, int id) async {
     emit(RestaurantDetailLoading());
     try {
-      var result = await fetchRestaurantDetail(token, id);
+      var result = await DioClient().fetchRestaurantDetail(token, id);
       emit(RestaurantDetailSuccess(detailRestaurant: result));
     } catch (e, s) {
       print(s);
